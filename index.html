@@ -37,14 +37,16 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;justify-content
 .nav-links a:hover::after{width:100%}
 
 /* HERO */
-.hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;padding-top:68px}
-.hero-left{display:flex;flex-direction:column;justify-content:center;padding:5rem 3rem 5rem 7%}
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding-top:68px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-200px;right:-100px;width:700px;height:700px;background:radial-gradient(circle,rgba(201,79,42,0.05) 0%,transparent 65%);pointer-events:none}
+.hero::after{content:'';position:absolute;bottom:-100px;left:-50px;width:500px;height:500px;background:radial-gradient(circle,rgba(26,92,139,0.04) 0%,transparent 65%);pointer-events:none}
+.hero-left{display:flex;flex-direction:column;justify-content:center;padding:5rem 7% 3rem;max-width:780px;position:relative;z-index:2}
 .hero-eyebrow{display:inline-flex;align-items:center;gap:0.6rem;font-family:var(--mono);font-size:0.68rem;color:var(--accent);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:1.8rem;opacity:0;animation:fadeUp 0.7s 0.1s forwards}
 .hero-eyebrow::before{content:'';width:32px;height:1.5px;background:var(--accent);flex-shrink:0}
-.hero h1{font-family:var(--serif);font-size:clamp(2.8rem,4vw,4.8rem);line-height:1.06;opacity:0;animation:fadeUp 0.7s 0.25s forwards}
+.hero h1{font-family:var(--serif);font-size:clamp(3.2rem,5.5vw,6rem);line-height:1.04;opacity:0;animation:fadeUp 0.7s 0.25s forwards}
 .hero h1 em{font-style:italic;color:var(--accent)}
-.hero h1 .line2{display:block;color:var(--blue)}
-.hero-desc{font-size:0.92rem;color:var(--muted);font-weight:300;line-height:1.95;margin:1.6rem 0 2.2rem;max-width:460px;opacity:0;animation:fadeUp 0.7s 0.4s forwards}
+.hero h1 .line2{display:inline;color:var(--blue)}
+.hero-desc{font-size:0.95rem;color:var(--muted);font-weight:300;line-height:1.95;margin:1.6rem 0 2.2rem;max-width:560px;opacity:0;animation:fadeUp 0.7s 0.4s forwards}
 .hero-pills{display:flex;flex-wrap:wrap;gap:0.5rem;margin-bottom:2.8rem;opacity:0;animation:fadeUp 0.7s 0.55s forwards}
 .pill{padding:0.28rem 0.8rem;font-size:0.65rem;font-weight:700;letter-spacing:0.09em;text-transform:uppercase;border-radius:2px}
 .pill-dark{background:var(--ink);color:var(--paper)}
@@ -58,14 +60,17 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;justify-content
 .btn-primary:hover{background:var(--accent);transform:translateY(-2px);box-shadow:0 8px 24px rgba(201,79,42,0.25)}
 .btn-ghost{background:transparent;color:var(--ink);border:1.5px solid var(--ink)}
 .btn-ghost:hover{background:var(--ink);color:var(--paper);transform:translateY(-2px)}
-.hero-right{background:var(--ink);display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;opacity:0;animation:fadeIn 1s 0.3s forwards}
-.stat-card{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:3rem 2rem;border:1px solid rgba(255,255,255,0.06);transition:background 0.3s;text-align:center}
-.stat-card:hover{background:rgba(255,255,255,0.04)}
-.stat-card.ac{background:var(--accent)}
-.stat-card.bl{background:var(--blue)}
-.stat-num{font-family:var(--serif);font-size:3.2rem;color:#fff;line-height:1;margin-bottom:0.4rem}
-.stat-label{font-size:0.66rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.45)}
-.stat-card.ac .stat-label,.stat-card.bl .stat-label{color:rgba(255,255,255,0.8)}
+/* STATS BAR replaces the blocking grid */
+.hero-stats-bar{display:flex;gap:0;border-top:1px solid rgba(15,25,35,0.08);opacity:0;animation:fadeUp 0.7s 0.85s forwards;position:relative;z-index:2}
+.stat-item{flex:1;padding:1.8rem 7%;border-right:1px solid rgba(15,25,35,0.08);position:relative}
+.stat-item:last-child{border-right:none}
+.stat-item::before{content:'';position:absolute;top:0;left:0;width:3px;height:100%;background:var(--accent);transform:scaleY(0);transform-origin:top;transition:transform 0.3s}
+.stat-item:hover::before{transform:scaleY(1)}
+.stat-item:nth-child(2)::before{background:var(--blue)}
+.stat-item:nth-child(3)::before{background:var(--gold)}
+.stat-item:nth-child(4)::before{background:var(--green)}
+.stat-num{font-family:var(--serif);font-size:2.4rem;color:var(--ink);line-height:1;margin-bottom:0.25rem}
+.stat-label{font-size:0.65rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted)}
 
 /* SECTIONS */
 section{padding:6rem 7%}
@@ -184,8 +189,8 @@ footer{background:#080f16;padding:1.5rem 7%;display:flex;justify-content:space-b
 footer p{font-size:0.68rem;color:rgba(255,255,255,0.18);font-family:var(--mono)}
 
 @media(max-width:900px){
-  .hero{grid-template-columns:1fr}
-  .hero-right{display:none}
+  .hero-stats-bar{flex-wrap:wrap}
+  .stat-item{flex:1 1 45%;border-bottom:1px solid rgba(15,25,35,0.08)}
   .proj-grid{grid-template-columns:1fr}
   .pcard.feat{grid-column:span 1}
   .about-grid,.ac-grid{grid-template-columns:1fr}
@@ -211,8 +216,8 @@ footer p{font-size:0.68rem;color:rgba(255,255,255,0.18);font-family:var(--mono)}
 <!-- HERO -->
 <section class="hero" id="home">
   <div class="hero-left">
-    <div class="hero-eyebrow">Philadelphia, PA · Open to H1B Sponsorship</div>
-    <h1>Niyati<br><em>Gajjar</em><br><span class="line2">Engineer &amp; PM</span></h1>
+    <div class="hero-eyebrow">Philadelphia, PA · OPT &amp; STEM OPT Eligible</div>
+    <h1>Niyati <em>Gajjar</em> — <span class="line2">Engineer &amp; PM</span></h1>
     <p class="hero-desc">Technical project lead turned Engineering Management graduate student at Temple University. I build IoT systems, coordinate cross-functional teams, and bridge the gap between code and business outcomes. Targeting <strong>Project Coordinator, Operations Coordinator &amp; Technical PM</strong> roles.</p>
     <div class="hero-pills">
       <span class="pill pill-dark">MS Engineering Management</span>
@@ -226,11 +231,11 @@ footer p{font-size:0.68rem;color:rgba(255,255,255,0.18);font-family:var(--mono)}
       <a href="#contact" class="btn btn-ghost">Get In Touch</a>
     </div>
   </div>
-  <div class="hero-right">
-    <div class="stat-card ac"><div class="stat-num">6+</div><div class="stat-label">Industry Projects</div></div>
-    <div class="stat-card"><div class="stat-num" style="color:var(--accent)">2+</div><div class="stat-label">Years Experience</div></div>
-    <div class="stat-card"><div class="stat-num" style="color:#fff">40+</div><div class="stat-label">Weekly IT Requests</div></div>
-    <div class="stat-card bl"><div class="stat-num">7</div><div class="stat-label">Technologies Used</div></div>
+  <div class="hero-stats-bar">
+    <div class="stat-item"><div class="stat-num">6+</div><div class="stat-label">Industry Projects</div></div>
+    <div class="stat-item"><div class="stat-num">2+</div><div class="stat-label">Years Experience</div></div>
+    <div class="stat-item"><div class="stat-num">40+</div><div class="stat-label">Weekly IT Requests Managed</div></div>
+    <div class="stat-item"><div class="stat-num">7+</div><div class="stat-label">Technologies Used</div></div>
   </div>
 </section>
 
@@ -248,7 +253,7 @@ footer p{font-size:0.68rem;color:rgba(255,255,255,0.18);font-family:var(--mono)}
       <div class="facts">
         <div class="fact"><span class="fact-lbl">Education</span><span class="fact-val">MS Engineering Management, Temple University (2024–2026)</span></div>
         <div class="fact b"><span class="fact-lbl">Location</span><span class="fact-val">Philadelphia, PA · Open to Remote &amp; Hybrid</span></div>
-        <div class="fact g"><span class="fact-lbl">Visa</span><span class="fact-val">F-1 OPT / STEM OPT · H1B Sponsorship Required</span></div>
+        <div class="fact g"><span class="fact-lbl">Work Auth</span><span class="fact-val">OPT Eligible · STEM OPT Extension · Based in Philadelphia</span></div>
       </div>
     </div>
     <div class="skill-groups">
@@ -617,13 +622,13 @@ footer p{font-size:0.68rem;color:rgba(255,255,255,0.18);font-family:var(--mono)}
     <span style="width:24px;height:1.5px;background:rgba(201,79,42,0.8);display:inline-block"></span>Let's Connect
   </div>
   <h2 class="ctitle2">Open to opportunities<br><em>across the US</em></h2>
-  <p class="cdesc2">Targeting Project Coordinator, Operations Coordinator, and Technical PM roles. Available on OPT — H1B sponsorship required. Based in Philadelphia, open to remote and hybrid.</p>
+  <p class="cdesc2">Targeting Project Coordinator, Operations Coordinator, and Technical PM roles. OPT &amp; STEM OPT eligible. Based in Philadelphia, open to remote and hybrid.</p>
   <div class="clinks">
-    <a href="mailto:tuu12330@temple.edu" class="clink p">✉ Email Me</a>
+    <a href="/cdn-cgi/l/email-protection#6d1918185c5f5e5e5d2d1908001d010843080918" class="clink p">✉ Email Me</a>
     <a href="https://www.linkedin.com/in/niyati-gajjar-/" target="_blank" class="clink gh">LinkedIn Profile</a>
   </div>
   <div class="cinfo">
-    <div><div class="ci-lbl">Email</div><div class="ci-val">tuu12330@temple.edu</div></div>
+    <div><div class="ci-lbl">Email</div><div class="ci-val"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="6216171753505151522216070f120e074c070617">[email&#160;protected]</a></div></div>
     <div><div class="ci-lbl">Location</div><div class="ci-val">Philadelphia, PA</div></div>
     <div><div class="ci-lbl">Availability</div><div class="ci-val">Immediate · OPT Ready</div></div>
     <div><div class="ci-lbl">Target Roles</div><div class="ci-val">PM · Coordinator · TPM</div></div>
@@ -635,11 +640,5 @@ footer p{font-size:0.68rem;color:rgba(255,255,255,0.18);font-family:var(--mono)}
   <p>Philadelphia, PA · Temple University MS Engineering Management</p>
 </footer>
 
-<script>
-const obs = new IntersectionObserver(entries => {
-  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('vis'); });
-}, {threshold: 0.1});
-document.querySelectorAll('.tli').forEach(el => { el.classList.remove('vis'); obs.observe(el); });
-</script>
-</body>
-</html>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+const
