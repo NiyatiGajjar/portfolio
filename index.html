@@ -658,12 +658,11 @@ footer p{font-size:0.68rem;color:rgba(255,255,255,0.15);font-family:var(--mono)}
   <p>Philadelphia, PA · Temple University MS Engineering Management</p>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" defer></script>
 <script>
 // ── LOADER
-window.addEventListener('load', () => {
-  setTimeout(() => document.getElementById('loader').classList.add('out'), 1800);
-});
+// Hide loader after 1.2s — does not wait for Three.js
+setTimeout(() => { document.getElementById('loader').classList.add('out'); }, 1200);
 
 // ── NAV
 window.addEventListener('scroll', () => {
@@ -694,7 +693,10 @@ document.querySelectorAll('a,button,.pcard,.flip-wrap,.can-card,.trait,.accard')
 
 // ── THREE.JS — FLOATING PARTICLES
 const canvas = document.getElementById('three-canvas');
-const renderer = new THREE.WebGLRenderer({canvas, alpha:true, antialias:true});
+let renderer;
+try { renderer = new THREE.WebGLRenderer({canvas, alpha:true, antialias:true}); } catch(e) { console.warn('WebGL not available'); }
+if(!renderer) { canvas.style.display='none'; }
+if(renderer) {
 renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
 renderer.setSize(window.innerWidth,window.innerHeight);
 
@@ -775,10 +777,12 @@ function animate(){
 animate();
 
 window.addEventListener('resize',()=>{
+  if(!renderer) return;
   camera.aspect=window.innerWidth/window.innerHeight;
   camera.updateProjectionMatrix();
   renderer.setSize(window.innerWidth,window.innerHeight);
 });
+} // end if(renderer)
 
 // ── SCROLL REVEAL
 const obs = new IntersectionObserver(entries=>{
