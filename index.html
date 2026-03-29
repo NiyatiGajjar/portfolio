@@ -4,641 +4,820 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Niyati Gajjar — Portfolio</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=Sora:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-:root {
-  --ink: #0f1923;
-  --paper: #f4f0e6;
-  --cream: #ede7d9;
-  --accent: #c94f2a;
-  --blue: #1a5c8b;
-  --gold: #b8933a;
-  --green: #2a7a4f;
-  --muted: #7a7060;
-  --light: #b0a890;
-  --serif: 'DM Serif Display', serif;
-  --mono: 'DM Mono', monospace;
-  --sans: 'Sora', sans-serif;
+:root{
+  --ink:#0a0f1a;--paper:#faf8f2;--cream:#f0ece0;
+  --accent:#e8652a;--blue:#2a7fc4;--gold:#d4a843;
+  --green:#3aaa6e;--purple:#9b6fe0;--pink:#e85a8a;
+  --muted:#7a7060;--light:#b8a88a;
+  --serif:'Playfair Display',serif;
+  --sans:'Plus Jakarta Sans',sans-serif;
+  --mono:'JetBrains Mono',monospace;
+  --glow-accent:rgba(232,101,42,0.4);
+  --glow-blue:rgba(42,127,196,0.4);
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
-body{font-family:var(--sans);background:var(--paper);color:var(--ink);line-height:1.7;overflow-x:hidden;font-size:15px}
-@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
-@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+body{font-family:var(--sans);background:var(--ink);color:#fff;overflow-x:hidden;line-height:1.7}
 
-/* NAV */
-nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;justify-content:space-between;align-items:center;padding:1rem 5%;background:rgba(244,240,230,0.96);backdrop-filter:blur(16px);border-bottom:1px solid rgba(15,25,35,0.07)}
-.nav-logo{font-family:var(--serif);font-size:1.15rem;color:var(--ink);text-decoration:none}
-.nav-logo span{color:var(--accent)}
+/* ── LOADER ── */
+.loader{position:fixed;inset:0;background:var(--ink);z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2rem;transition:opacity 0.8s,visibility 0.8s}
+.loader.out{opacity:0;visibility:hidden}
+.loader-logo{font-family:var(--serif);font-size:3rem;font-style:italic;color:#fff;opacity:0;animation:loaderPop 0.8s 0.3s forwards}
+.loader-bar{width:200px;height:2px;background:rgba(255,255,255,0.1);border-radius:2px;overflow:hidden}
+.loader-fill{height:100%;background:linear-gradient(to right,var(--accent),var(--blue));border-radius:2px;width:0;animation:loaderFill 1.5s 0.5s ease-out forwards}
+.loader-text2{font-family:var(--mono);font-size:0.68rem;color:rgba(255,255,255,0.3);letter-spacing:0.15em;opacity:0;animation:loaderPop 0.5s 0.8s forwards}
+@keyframes loaderPop{to{opacity:1}}
+@keyframes loaderFill{to{width:100%}}
+
+/* ── CURSOR ── */
+.cur{width:10px;height:10px;background:var(--accent);border-radius:50%;position:fixed;pointer-events:none;z-index:9998;transition:transform 0.15s,background 0.2s;mix-blend-mode:screen}
+.cur-r{width:32px;height:32px;border:1px solid rgba(232,101,42,0.5);border-radius:50%;position:fixed;pointer-events:none;z-index:9997;transition:border-color 0.2s}
+@media(hover:none){.cur,.cur-r{display:none}}
+
+/* ── NAV ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:1.2rem 5%;display:flex;justify-content:space-between;align-items:center;transition:all 0.4s}
+nav.scrolled{background:rgba(10,15,26,0.92);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,255,255,0.06)}
+.nav-logo{font-family:var(--serif);font-size:1.2rem;color:#fff;text-decoration:none;font-style:italic}
+.nav-logo span{color:var(--accent);font-style:normal;font-weight:700}
 .nav-links{display:flex;gap:2rem;list-style:none}
-.nav-links a{font-size:0.7rem;font-weight:600;letter-spacing:0.13em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color 0.2s;position:relative}
-.nav-links a::after{content:'';position:absolute;bottom:-3px;left:0;width:0;height:1.5px;background:var(--accent);transition:width 0.25s}
+.nav-links a{font-size:0.7rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.5);text-decoration:none;transition:color 0.2s}
 .nav-links a:hover{color:var(--accent)}
-.nav-links a:hover::after{width:100%}
+.nav-cta{padding:0.5rem 1.4rem;background:var(--accent);color:#fff;font-size:0.7rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;text-decoration:none;border-radius:4px;transition:all 0.2s}
+.nav-cta:hover{background:#f07a3a;transform:translateY(-2px);box-shadow:0 8px 20px var(--glow-accent)}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px}
+.hamburger span{width:22px;height:2px;background:#fff;border-radius:2px;transition:all 0.3s}
+.mob-menu{display:none;position:fixed;inset:0;background:rgba(10,15,26,0.98);backdrop-filter:blur(20px);z-index:99;flex-direction:column;align-items:center;justify-content:center;gap:2.5rem}
+.mob-menu.open{display:flex}
+.mob-menu a{font-family:var(--serif);font-size:2.2rem;color:#fff;text-decoration:none;font-style:italic;transition:color 0.2s}
+.mob-menu a:hover{color:var(--accent)}
+.mob-close{position:absolute;top:1.5rem;right:5%;font-size:1.5rem;color:rgba(255,255,255,0.5);cursor:pointer;background:none;border:none;transition:color 0.2s}
+.mob-close:hover{color:#fff}
 
-/* HERO */
-.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding-top:68px;position:relative;overflow:hidden}
-.hero::before{content:'';position:absolute;top:-200px;right:-100px;width:700px;height:700px;background:radial-gradient(circle,rgba(201,79,42,0.05) 0%,transparent 65%);pointer-events:none}
-.hero::after{content:'';position:absolute;bottom:-100px;left:-50px;width:500px;height:500px;background:radial-gradient(circle,rgba(26,92,139,0.04) 0%,transparent 65%);pointer-events:none}
-.hero-left{display:flex;flex-direction:column;justify-content:center;padding:5rem 7% 3rem;max-width:780px;position:relative;z-index:2}
-.hero-eyebrow{display:inline-flex;align-items:center;gap:0.6rem;font-family:var(--mono);font-size:0.68rem;color:var(--accent);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:1.8rem;opacity:0;animation:fadeUp 0.7s 0.1s forwards}
-.hero-eyebrow::before{content:'';width:32px;height:1.5px;background:var(--accent);flex-shrink:0}
-.hero h1{font-family:var(--serif);font-size:clamp(3.2rem,5.5vw,6rem);line-height:1.04;opacity:0;animation:fadeUp 0.7s 0.25s forwards}
-.hero h1 em{font-style:italic;color:var(--accent)}
-.hero h1 .line2{display:inline;color:var(--blue)}
-.hero-desc{font-size:0.95rem;color:var(--muted);font-weight:300;line-height:1.95;margin:1.6rem 0 2.2rem;max-width:560px;opacity:0;animation:fadeUp 0.7s 0.4s forwards}
-.hero-pills{display:flex;flex-wrap:wrap;gap:0.5rem;margin-bottom:2.8rem;opacity:0;animation:fadeUp 0.7s 0.55s forwards}
-.pill{padding:0.28rem 0.8rem;font-size:0.65rem;font-weight:700;letter-spacing:0.09em;text-transform:uppercase;border-radius:2px}
-.pill-dark{background:var(--ink);color:var(--paper)}
-.pill-accent{background:var(--accent);color:#fff}
-.pill-blue{background:var(--blue);color:#fff}
-.pill-outline{border:1.5px solid var(--ink);color:var(--ink)}
-.pill-gold{background:var(--gold);color:#fff}
-.hero-cta{display:flex;gap:1rem;opacity:0;animation:fadeUp 0.7s 0.7s forwards}
-.btn{display:inline-flex;align-items:center;gap:0.5rem;padding:0.8rem 1.8rem;font-size:0.73rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;text-decoration:none;border-radius:2px;transition:all 0.25s;font-family:var(--sans);border:none;cursor:pointer}
-.btn-primary{background:var(--ink);color:var(--paper)}
-.btn-primary:hover{background:var(--accent);transform:translateY(-2px);box-shadow:0 8px 24px rgba(201,79,42,0.25)}
-.btn-ghost{background:transparent;color:var(--ink);border:1.5px solid var(--ink)}
-.btn-ghost:hover{background:var(--ink);color:var(--paper);transform:translateY(-2px)}
-/* STATS BAR replaces the blocking grid */
-.hero-stats-bar{display:flex;gap:0;border-top:1px solid rgba(15,25,35,0.08);opacity:0;animation:fadeUp 0.7s 0.85s forwards;position:relative;z-index:2}
-.stat-item{flex:1;padding:1.8rem 7%;border-right:1px solid rgba(15,25,35,0.08);position:relative}
-.stat-item:last-child{border-right:none}
-.stat-item::before{content:'';position:absolute;top:0;left:0;width:3px;height:100%;background:var(--accent);transform:scaleY(0);transform-origin:top;transition:transform 0.3s}
-.stat-item:hover::before{transform:scaleY(1)}
-.stat-item:nth-child(2)::before{background:var(--blue)}
-.stat-item:nth-child(3)::before{background:var(--gold)}
-.stat-item:nth-child(4)::before{background:var(--green)}
-.stat-num{font-family:var(--serif);font-size:2.4rem;color:var(--ink);line-height:1;margin-bottom:0.25rem}
-.stat-label{font-size:0.65rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted)}
+/* ── THREE.JS CANVAS ── */
+#three-canvas{position:fixed;inset:0;z-index:0;pointer-events:none}
 
-/* SECTIONS */
-section{padding:6rem 7%}
-section.alt{background:var(--cream)}
+/* ── HERO ── */
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:120px 5% 5rem;position:relative;z-index:2}
+.hero-badge{display:inline-flex;align-items:center;gap:0.6rem;font-family:var(--mono);font-size:0.68rem;color:var(--accent);letter-spacing:0.12em;margin-bottom:1.5rem;opacity:0;animation:heroUp 0.8s 2s forwards}
+.hero-badge::before{content:'';width:28px;height:1px;background:var(--accent)}
+.pulse-dot{width:6px;height:6px;background:var(--green);border-radius:50%;animation:pulse 2s ease-in-out infinite}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(58,170,110,0.6)}50%{box-shadow:0 0 0 6px rgba(58,170,110,0)}}
+.hero-name{font-family:var(--serif);font-size:clamp(3.5rem,9vw,8rem);line-height:1.0;margin-bottom:0.5rem;opacity:0;animation:heroUp 0.8s 2.15s forwards}
+.hero-name .line-accent{display:block;font-style:italic;color:transparent;-webkit-text-stroke:2px var(--accent);letter-spacing:-0.02em}
+.hero-name .line-solid{display:block;color:#fff}
+.hero-role{font-family:var(--serif);font-size:clamp(1.2rem,3vw,2rem);color:rgba(255,255,255,0.45);font-style:italic;margin-bottom:1.8rem;opacity:0;animation:heroUp 0.8s 2.3s forwards}
+.hero-role span{color:var(--blue)}
+.hero-desc{font-size:1rem;color:rgba(255,255,255,0.55);line-height:1.95;max-width:600px;margin-bottom:2.5rem;opacity:0;animation:heroUp 0.8s 2.45s forwards}
+.hero-desc strong{color:#fff}
+.hero-btns{display:flex;flex-wrap:wrap;gap:1rem;margin-bottom:4rem;opacity:0;animation:heroUp 0.8s 2.6s forwards}
+.btn{display:inline-flex;align-items:center;gap:0.5rem;padding:0.9rem 2.2rem;font-size:0.78rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;text-decoration:none;border-radius:6px;transition:all 0.3s;font-family:var(--sans);border:none;cursor:pointer;position:relative;overflow:hidden}
+.btn::before{content:'';position:absolute;inset:0;background:rgba(255,255,255,0.1);transform:translateX(-100%);transition:transform 0.3s}
+.btn:hover::before{transform:translateX(0)}
+.btn-glow{background:var(--accent);color:#fff}
+.btn-glow:hover{transform:translateY(-3px);box-shadow:0 16px 40px var(--glow-accent)}
+.btn-glass{background:rgba(255,255,255,0.06);color:#fff;border:1px solid rgba(255,255,255,0.15);backdrop-filter:blur(10px)}
+.btn-glass:hover{background:rgba(255,255,255,0.12);transform:translateY(-3px);border-color:rgba(255,255,255,0.3)}
+.hero-stats{display:flex;flex-wrap:wrap;gap:0;opacity:0;animation:heroUp 0.8s 2.75s forwards;border-top:1px solid rgba(255,255,255,0.08);padding-top:2rem}
+.hs{padding-right:2.5rem;border-right:1px solid rgba(255,255,255,0.08);margin-right:2.5rem}
+.hs:last-child{border-right:none;margin-right:0}
+.hs-num{font-family:var(--serif);font-size:2.5rem;color:var(--accent);line-height:1}
+.hs-lbl{font-size:0.65rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.35);margin-top:0.2rem}
+@keyframes heroUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
 
-.section-header{margin-bottom:3.5rem}
-.eyebrow{display:inline-flex;align-items:center;gap:0.6rem;font-family:var(--mono);font-size:0.68rem;color:var(--accent);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:0.8rem}
-.eyebrow::before{content:'';width:24px;height:1.5px;background:var(--accent)}
-.sec-title{font-family:var(--serif);font-size:clamp(2rem,3vw,3rem);line-height:1.1}
-.sec-title em{font-style:italic;color:var(--blue)}
-.sec-desc{font-size:0.9rem;color:var(--muted);max-width:560px;margin-top:0.8rem;line-height:1.9}
+/* ── SECTIONS ── */
+section{position:relative;z-index:2}
+.sec-wrap{max-width:1200px;margin:0 auto;padding:7rem 5%}
+.sec-ey{font-family:var(--mono);font-size:0.68rem;color:var(--accent);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:0.8rem;display:flex;align-items:center;gap:0.6rem}
+.sec-ey::before{content:'';width:24px;height:1px;background:var(--accent)}
+.sec-t{font-family:var(--serif);font-size:clamp(2rem,4vw,3.2rem);line-height:1.1;margin-bottom:0.6rem}
+.sec-t em{font-style:italic;color:var(--accent)}
+.sec-d{font-size:0.9rem;color:rgba(255,255,255,0.45);max-width:500px;line-height:1.85;margin-bottom:3rem}
 
-/* ABOUT */
-.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start}
-.about-text p{font-size:0.9rem;color:var(--muted);line-height:1.95;margin-bottom:1rem}
-.about-text p strong{color:var(--ink);font-weight:600}
-.facts{display:grid;gap:0.8rem;margin-top:1.8rem}
-.fact{display:flex;align-items:center;gap:1rem;padding:0.8rem 1.1rem;background:#fff;border-left:3px solid var(--accent);border-radius:0 3px 3px 0}
-.fact.b{border-color:var(--blue)}
-.fact.g{border-color:var(--gold)}
-.fact-lbl{font-size:0.65rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);width:110px;flex-shrink:0}
-.fact-val{font-size:0.83rem;font-weight:500;color:var(--ink)}
-.skill-groups{display:flex;flex-direction:column;gap:1.5rem}
-.sg-title{font-size:0.65rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-bottom:0.6rem}
-.sg-tags{display:flex;flex-wrap:wrap;gap:0.35rem}
-.stag{padding:0.26rem 0.72rem;font-size:0.68rem;font-weight:500;border-radius:2px;border:1px solid}
-.stag.t{background:rgba(26,92,139,0.07);border-color:rgba(26,92,139,0.18);color:var(--blue)}
-.stag.m{background:rgba(201,79,42,0.06);border-color:rgba(201,79,42,0.18);color:var(--accent)}
-.stag.o{background:rgba(184,147,58,0.07);border-color:rgba(184,147,58,0.18);color:var(--gold)}
+/* ── ABOUT ── */
+.about-sec{background:transparent;padding:0}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center}
+.monogram-3d{width:220px;height:220px;perspective:800px;margin:0 auto 2rem;cursor:pointer}
+.monogram-inner{width:100%;height:100%;position:relative;transform-style:preserve-3d;transition:transform 0.8s cubic-bezier(0.25,0.46,0.45,0.94);border-radius:50%}
+.monogram-3d:hover .monogram-inner{transform:rotateY(180deg)}
+.mono-front,.mono-back{position:absolute;inset:0;border-radius:50%;display:flex;align-items:center;justify-content:center;backface-visibility:hidden;-webkit-backface-visibility:hidden}
+.mono-front{background:linear-gradient(135deg,var(--accent),var(--purple));box-shadow:0 20px 60px var(--glow-accent),0 0 0 1px rgba(255,255,255,0.1)}
+.mono-back{background:linear-gradient(135deg,var(--blue),var(--green));transform:rotateY(180deg);flex-direction:column;gap:0.5rem}
+.mono-front span{font-family:var(--serif);font-size:4.5rem;color:#fff;font-style:italic}
+.mono-back p{font-size:0.72rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,255,255,0.7);text-align:center;padding:0 1.5rem;line-height:1.6}
+.mono-hint{font-size:0.65rem;font-family:var(--mono);color:rgba(255,255,255,0.4);margin-top:0.3rem}
+.about-desc{font-size:0.95rem;color:rgba(255,255,255,0.55);line-height:1.95;margin-bottom:1.2rem}
+.about-desc strong{color:#fff}
+.quote-block{border-left:3px solid var(--accent);padding:1rem 1.5rem;margin:1.5rem 0;background:rgba(232,101,42,0.06);border-radius:0 8px 8px 0}
+.quote-block p{font-family:var(--serif);font-style:italic;font-size:1rem;color:rgba(255,255,255,0.75);line-height:1.7}
+.traits-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.trait{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);border-radius:12px;padding:1.2rem;transition:all 0.3s;cursor:default;transform-style:preserve-3d}
+.trait:hover{background:rgba(255,255,255,0.08);border-color:rgba(232,101,42,0.4);transform:translateY(-4px) rotateX(5deg);box-shadow:0 20px 40px rgba(0,0,0,0.3)}
+.ti{font-size:1.4rem;margin-bottom:0.4rem}
+.tn{font-size:0.83rem;font-weight:700;color:#fff;margin-bottom:0.2rem}
+.td-t{font-size:0.75rem;color:rgba(255,255,255,0.4);line-height:1.5}
 
-/* PROJECTS */
-.proj-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem}
-.pcard{background:#fff;border-radius:4px;overflow:hidden;transition:transform 0.3s,box-shadow 0.3s}
-.pcard:hover{transform:translateY(-6px);box-shadow:0 20px 40px rgba(15,25,35,0.12)}
-.pcard.feat{grid-column:span 2}
-.ctop{padding:2rem;min-height:200px;display:flex;flex-direction:column;justify-content:space-between;position:relative;overflow:hidden}
-.ctop.dk{background:var(--ink)}
-.ctop.ac{background:var(--accent)}
-.ctop.bl{background:var(--blue)}
-.ctop.go{background:var(--gold)}
-.ctop.gr{background:var(--green)}
-.ctop.nv{background:#1a2d3d}
-.cnum{font-family:var(--mono);font-size:0.63rem;color:rgba(255,255,255,0.3);letter-spacing:0.1em}
-.ctitle{font-family:var(--serif);font-size:1.5rem;line-height:1.15;color:#fff;margin-top:1rem}
-.ctitle.lg{font-size:1.85rem}
-.csub{font-size:0.7rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,255,255,0.55);margin-top:0.3rem}
-.cbg{position:absolute;bottom:-20px;right:-10px;font-family:var(--serif);font-size:6rem;color:rgba(255,255,255,0.04);line-height:1;pointer-events:none;font-style:italic}
-.cbody{padding:1.5rem 2rem 2rem}
-.cdesc{font-size:0.82rem;color:var(--muted);line-height:1.85;margin-bottom:1.1rem}
-.ctags{display:flex;flex-wrap:wrap;gap:0.35rem;margin-bottom:1rem}
-.tag{padding:0.22rem 0.6rem;font-size:0.62rem;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;border-radius:2px}
-.tag.tt{background:rgba(26,92,139,0.08);color:var(--blue)}
-.tag.tm{background:rgba(201,79,42,0.07);color:var(--accent)}
-.tag.td{background:rgba(184,147,58,0.08);color:var(--gold)}
-.tag.tg{background:rgba(42,122,79,0.08);color:var(--green)}
-.metrics{display:flex;gap:1.5rem;padding-top:1rem;border-top:1px solid rgba(15,25,35,0.07)}
-.metric{text-align:center}
-.mnum{font-family:var(--serif);font-size:1.4rem;color:var(--ink);line-height:1}
-.mlbl{font-size:0.6rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--light);margin-top:0.2rem}
+/* ── FLIP CARDS — LIFE ── */
+.life-sec{background:rgba(255,255,255,0.02)}
+.life-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem}
+.flip-wrap{height:220px;perspective:1000px;cursor:pointer}
+.flip-wrap.tall{height:300px}
+.flip-inner{width:100%;height:100%;position:relative;transform-style:preserve-3d;transition:transform 0.7s cubic-bezier(0.25,0.46,0.45,0.94)}
+.flip-wrap:hover .flip-inner,.flip-wrap.flipped .flip-inner{transform:rotateY(180deg)}
+.flip-front,.flip-back{position:absolute;inset:0;border-radius:16px;backface-visibility:hidden;-webkit-backface-visibility:hidden;display:flex;flex-direction:column;justify-content:flex-end;padding:1.5rem}
+.flip-front{overflow:hidden}
+.flip-front-bg{position:absolute;inset:0;border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:5rem;transition:transform 0.5s}
+.flip-wrap:hover .flip-front-bg{transform:scale(1.1) rotate(10deg)}
+.flip-front-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(10,15,26,0.85),transparent);border-radius:16px}
+.flip-front-content{position:relative;z-index:2}
+.ff-title{font-weight:700;font-size:1rem;color:#fff;margin-bottom:0.2rem}
+.ff-sub{font-size:0.72rem;color:rgba(255,255,255,0.55)}
+.flip-back{background:linear-gradient(135deg,var(--accent),var(--purple));transform:rotateY(180deg);justify-content:center;align-items:center;text-align:center;padding:2rem}
+.flip-back.blue{background:linear-gradient(135deg,var(--blue),var(--green))}
+.flip-back.gold{background:linear-gradient(135deg,var(--gold),var(--accent))}
+.flip-back.purple{background:linear-gradient(135deg,var(--purple),var(--pink))}
+.flip-back.green{background:linear-gradient(135deg,var(--green),var(--blue))}
+.flip-back.dark{background:linear-gradient(135deg,#1e3a5f,var(--purple))}
+.fb-icon{font-size:2.5rem;margin-bottom:0.8rem}
+.fb-text{font-size:0.85rem;color:rgba(255,255,255,0.9);line-height:1.7}
+.life-span2{grid-column:span 2}
 
-/* CODE */
-.code-sec{background:var(--ink);padding:5rem 7%}
-.code-hdr{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:2rem}
-.cw{background:#0a1520;border-radius:8px;overflow:hidden;box-shadow:0 32px 64px rgba(0,0,0,0.4)}
-.ctbar{display:flex;align-items:center;gap:0.5rem;padding:0.85rem 1.2rem;background:#111e2d;border-bottom:1px solid rgba(255,255,255,0.06)}
+/* ── WHAT I CAN DO — 3D CARDS ── */
+.can-sec{background:transparent}
+.can-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem}
+.can-card{border-radius:16px;padding:2rem;position:relative;overflow:hidden;transition:all 0.4s;transform-style:preserve-3d;cursor:default}
+.can-card::after{content:'';position:absolute;inset:0;background:radial-gradient(circle at var(--mx,50%) var(--my,50%),rgba(255,255,255,0.08),transparent 60%);opacity:0;transition:opacity 0.3s;pointer-events:none}
+.can-card:hover::after{opacity:1}
+.can-card:hover{transform:translateY(-8px) rotateX(6deg) rotateY(-3deg);box-shadow:0 30px 60px rgba(0,0,0,0.4)}
+.cc1{background:linear-gradient(135deg,#1a2a3a,#0f1923);border:1px solid rgba(255,255,255,0.07)}
+.cc2{background:linear-gradient(135deg,#3a1a0a,#2a0f05);border:1px solid rgba(232,101,42,0.2)}
+.cc3{background:linear-gradient(135deg,#0a1a3a,#050f2a);border:1px solid rgba(42,127,196,0.2)}
+.cc4{background:linear-gradient(135deg,#1a1a0a,#0f0f05);border:1px solid rgba(212,168,67,0.2)}
+.cc5{background:linear-gradient(135deg,#0a2a1a,#051a0a);border:1px solid rgba(58,170,110,0.2)}
+.cc6{background:linear-gradient(135deg,#1a0a2a,#0f0520);border:1px solid rgba(155,111,224,0.2)}
+.cc-icon{font-size:2.2rem;margin-bottom:1rem}
+.cc-title{font-weight:700;font-size:1.05rem;color:#fff;margin-bottom:0.6rem}
+.cc-desc{font-size:0.82rem;color:rgba(255,255,255,0.5);line-height:1.7;margin-bottom:1rem}
+.cc-tags{display:flex;flex-wrap:wrap;gap:0.35rem}
+.cctag{padding:0.2rem 0.55rem;font-size:0.62rem;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;border-radius:3px;background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.6)}
+
+/* ── PROJECTS ── */
+.proj-sec{background:rgba(255,255,255,0.02)}
+.proj-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem}
+.pcard{border-radius:16px;overflow:hidden;transition:all 0.4s;transform-style:preserve-3d;position:relative}
+.pcard:hover{transform:translateY(-10px) rotateX(4deg);box-shadow:0 40px 80px rgba(0,0,0,0.5)}
+.pcard.sp2{grid-column:span 2}
+.pt{padding:1.8rem;min-height:180px;display:flex;flex-direction:column;justify-content:space-between;position:relative;overflow:hidden}
+.pt.dk{background:linear-gradient(135deg,#0f1923,#1a2d3d)}
+.pt.ac{background:linear-gradient(135deg,#c44a1a,#e8652a)}
+.pt.bl{background:linear-gradient(135deg,#1056a0,#2a7fc4)}
+.pt.go{background:linear-gradient(135deg,#a07a20,#d4a843)}
+.pt.gr{background:linear-gradient(135deg,#1a6040,#3aaa6e)}
+.pt.nv{background:linear-gradient(135deg,#0a1525,#1e3a5f)}
+.pcard:hover .pt::after{content:'';position:absolute;inset:0;background:rgba(255,255,255,0.05)}
+.pnum{font-family:var(--mono);font-size:0.62rem;color:rgba(255,255,255,0.25);letter-spacing:0.1em}
+.ptitle{font-family:var(--serif);font-size:1.3rem;color:#fff;line-height:1.2;margin-top:0.8rem}
+.ptitle.lg{font-size:1.7rem}
+.psub{font-size:0.72rem;color:rgba(255,255,255,0.5);margin-top:0.3rem;font-weight:500}
+.pbg{position:absolute;bottom:-15px;right:-10px;font-family:var(--serif);font-size:5rem;color:rgba(255,255,255,0.04);line-height:1;font-style:italic}
+.pb{padding:1.5rem 1.8rem 1.8rem;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-top:none;border-radius:0 0 16px 16px}
+.pdesc{font-size:0.82rem;color:rgba(255,255,255,0.5);line-height:1.85;margin-bottom:1rem}
+.ptags{display:flex;flex-wrap:wrap;gap:0.35rem;margin-bottom:1rem}
+.ptag{padding:0.2rem 0.6rem;font-size:0.62rem;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;border-radius:3px}
+.ptag.t{background:rgba(42,127,196,0.15);color:var(--blue)}
+.ptag.m{background:rgba(232,101,42,0.15);color:var(--accent)}
+.pmet{display:flex;gap:1.5rem;padding-top:0.8rem;border-top:1px solid rgba(255,255,255,0.06)}
+.pm-n{font-family:var(--serif);font-size:1.3rem;color:#fff;line-height:1}
+.pm-l{font-size:0.6rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,255,255,0.3);margin-top:0.15rem}
+
+/* ── CODE ── */
+.code-sec{background:rgba(0,0,0,0.3)}
+.cw{background:#080f1a;border-radius:16px;overflow:hidden;box-shadow:0 40px 80px rgba(0,0,0,0.6),0 0 0 1px rgba(255,255,255,0.05)}
+.ctbar{display:flex;align-items:center;gap:0.5rem;padding:0.9rem 1.4rem;background:#0d1825;border-bottom:1px solid rgba(255,255,255,0.05)}
 .dot{width:12px;height:12px;border-radius:50%}
 .dot.r{background:#ff5f57}.dot.y{background:#febc2e}.dot.g{background:#28c840}
-.cfn{font-family:var(--mono);font-size:0.7rem;color:rgba(255,255,255,0.35);margin-left:0.8rem}
-.cbk{padding:1.8rem 2rem;overflow-x:auto}
-pre{font-family:var(--mono);font-size:0.76rem;line-height:1.8;color:#a8b8c8}
-.cm{color:#506070}.ck{color:#c792ea}.cs{color:#c3e88d}.cf{color:#82aaff}.cn{color:#f78c6c}.cc{color:#ffcb6b}.cv{color:#eeffff}
+.cfn{font-family:var(--mono);font-size:0.7rem;color:rgba(255,255,255,0.25);margin-left:0.8rem}
+.cbk{padding:2rem;overflow-x:auto}
+pre{font-family:var(--mono);font-size:0.78rem;line-height:1.85;color:#8899aa}
+.cm{color:#3d5060}.ck{color:#c792ea}.cs{color:#c3e88d}.cf{color:#82aaff}.cn{color:#f78c6c}.cc{color:#ffcb6b}.cv{color:#eeffff}
 
-/* TIMELINE */
-.tl{position:relative;padding-left:2.5rem}
-.tl::before{content:'';position:absolute;left:0;top:8px;bottom:8px;width:2px;background:linear-gradient(to bottom,var(--accent),var(--blue),var(--gold),var(--green))}
-.tli{position:relative;margin-bottom:3rem;opacity:0;transform:translateX(-10px);transition:all 0.5s}
+/* ── TIMELINE ── */
+.exp-sec{background:rgba(255,255,255,0.02)}
+.tl{position:relative;padding-left:2rem}
+.tl::before{content:'';position:absolute;left:0;top:8px;bottom:0;width:2px;background:linear-gradient(to bottom,var(--accent),var(--blue),var(--gold),var(--green))}
+.tli{position:relative;margin-bottom:3.5rem;opacity:0;transform:translateX(-24px);transition:all 0.6s}
 .tli.vis{opacity:1;transform:translateX(0)}
-.tldot{position:absolute;left:-2.9rem;top:6px;width:14px;height:14px;border-radius:50%;background:var(--accent);border:3px solid var(--paper)}
+.tldot{position:absolute;left:-2.4rem;top:4px;width:14px;height:14px;border-radius:50%;background:var(--accent);border:3px solid var(--ink);transition:transform 0.3s,box-shadow 0.3s}
+.tli:hover .tldot{transform:scale(1.5);box-shadow:0 0 16px var(--glow-accent)}
 .tldot.b{background:var(--blue)}.tldot.g{background:var(--gold)}.tldot.gr{background:var(--green)}
-.tldate{font-family:var(--mono);font-size:0.63rem;color:var(--light);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.4rem}
-.tlrole{font-weight:700;font-size:1rem;color:var(--ink);margin-bottom:0.2rem}
-.tlco{font-size:0.82rem;color:var(--accent);font-weight:600;margin-bottom:0.8rem}
-.tlpts{list-style:none;display:flex;flex-direction:column;gap:0.35rem}
-.tlpts li{font-size:0.82rem;color:var(--muted);padding-left:1.2rem;position:relative;line-height:1.7}
-.tlpts li::before{content:'→';position:absolute;left:0;color:var(--accent);font-size:0.72rem}
-.tltags{display:flex;flex-wrap:wrap;gap:0.35rem;margin-top:0.8rem}
+.tldate{font-family:var(--mono);font-size:0.63rem;color:rgba(255,255,255,0.3);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.3rem}
+.tlrole{font-weight:700;font-size:1.05rem;color:#fff;margin-bottom:0.2rem}
+.tlco{font-size:0.85rem;color:var(--accent);font-weight:600;margin-bottom:0.8rem}
+.tlpts{list-style:none;display:flex;flex-direction:column;gap:0.3rem;margin-bottom:0.8rem}
+.tlpts li{font-size:0.82rem;color:rgba(255,255,255,0.5);padding-left:1.2rem;position:relative;line-height:1.7}
+.tlpts li::before{content:'→';position:absolute;left:0;color:var(--accent);font-size:0.72rem;top:0.1rem}
+.tltags{display:flex;flex-wrap:wrap;gap:0.35rem}
+.ttag{padding:0.2rem 0.6rem;font-size:0.62rem;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;border-radius:3px;background:rgba(42,127,196,0.12);color:var(--blue)}
+.ttag.m{background:rgba(232,101,42,0.12);color:var(--accent)}
 
-/* ACADEMIC */
+/* ── ACADEMIC ── */
+.ac-sec{background:rgba(0,0,0,0.2)}
 .ac-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.4rem}
-.accard{background:#fff;border-radius:4px;padding:2rem;border-top:3px solid var(--accent);transition:transform 0.3s,box-shadow 0.3s}
-.accard:hover{transform:translateY(-4px);box-shadow:0 16px 32px rgba(15,25,35,0.1)}
-.accard.b{border-color:var(--blue)}.accard.g{border-color:var(--gold)}.accard.gr{border-color:var(--green)}
-.accourse{font-family:var(--mono);font-size:0.63rem;color:var(--light);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.5rem}
-.actitle{font-family:var(--serif);font-size:1.3rem;color:var(--ink);margin-bottom:0.8rem;line-height:1.2}
-.acdesc{font-size:0.81rem;color:var(--muted);line-height:1.85;margin-bottom:1rem}
-.achls{display:flex;flex-direction:column;gap:0.3rem}
-.hl{display:flex;align-items:flex-start;gap:0.55rem;font-size:0.77rem;color:var(--muted)}
-.hl::before{content:'✦';color:var(--accent);font-size:0.58rem;margin-top:0.35rem;flex-shrink:0}
-.accard.b .hl::before{color:var(--blue)}.accard.g .hl::before{color:var(--gold)}.accard.gr .hl::before{color:var(--green)}
+.accard{border-radius:16px;overflow:hidden;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);transition:all 0.4s;transform-style:preserve-3d}
+.accard:hover{transform:translateY(-6px) rotateX(4deg);box-shadow:0 24px 60px rgba(0,0,0,0.4);border-color:rgba(232,101,42,0.25)}
+.ac-top-bar{height:3px}
+.ac-top-bar.a{background:linear-gradient(to right,var(--accent),var(--purple))}
+.ac-top-bar.b{background:linear-gradient(to right,var(--blue),var(--green))}
+.ac-top-bar.g{background:linear-gradient(to right,var(--gold),var(--accent))}
+.ac-top-bar.gr{background:linear-gradient(to right,var(--green),var(--blue))}
+.ac-pad{padding:1.5rem 1.8rem}
+.ac-course{font-family:var(--mono);font-size:0.63rem;color:rgba(255,255,255,0.3);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.4rem}
+.ac-title{font-family:var(--serif);font-size:1.2rem;color:#fff;line-height:1.25;margin-bottom:1rem}
+.ac-desc{font-size:0.82rem;color:rgba(255,255,255,0.5);line-height:1.85;margin-bottom:1rem}
+.ac-hls{display:flex;flex-direction:column;gap:0.3rem}
+.ahl{display:flex;align-items:flex-start;gap:0.5rem;font-size:0.78rem;color:rgba(255,255,255,0.45)}
+.ahl::before{content:'✦';color:var(--accent);font-size:0.58rem;margin-top:0.35rem;flex-shrink:0}
 
-/* CONTACT */
-.contact-sec{background:var(--ink);padding:6rem 7%;text-align:center}
-.ctitle2{font-family:var(--serif);font-size:clamp(2.2rem,3.5vw,3.8rem);color:#fff;margin-bottom:1rem;line-height:1.1}
-.ctitle2 em{font-style:italic;color:var(--accent)}
-.cdesc2{font-size:0.9rem;color:rgba(255,255,255,0.4);max-width:480px;margin:0 auto 2.5rem;line-height:1.9}
-.clinks{display:flex;justify-content:center;gap:1rem;flex-wrap:wrap}
-.clink{display:inline-flex;align-items:center;gap:0.5rem;padding:0.85rem 2rem;font-size:0.73rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;text-decoration:none;border-radius:2px;transition:all 0.25s}
-.clink.p{background:var(--accent);color:#fff}
-.clink.p:hover{background:#e05a30;transform:translateY(-2px)}
-.clink.gh{border:1.5px solid rgba(255,255,255,0.2);color:rgba(255,255,255,0.65)}
-.clink.gh:hover{border-color:#fff;color:#fff;transform:translateY(-2px)}
-.cinfo{display:flex;justify-content:center;gap:2.5rem;margin-top:3rem;padding-top:2.5rem;border-top:1px solid rgba(255,255,255,0.08);flex-wrap:wrap}
-.ci-lbl{font-size:0.6rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.28);margin-bottom:0.3rem}
-.ci-val{font-size:0.82rem;color:rgba(255,255,255,0.6)}
-footer{background:#080f16;padding:1.5rem 7%;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem}
-footer p{font-size:0.68rem;color:rgba(255,255,255,0.18);font-family:var(--mono)}
+/* ── CONNECT ── */
+.connect-sec{background:transparent;text-align:center}
+.connect-title{font-family:var(--serif);font-size:clamp(2.5rem,6vw,5rem);color:#fff;line-height:1.05;margin:1rem 0}
+.connect-title em{font-style:italic;color:transparent;-webkit-text-stroke:2px var(--accent)}
+.connect-desc{font-size:0.95rem;color:rgba(255,255,255,0.4);max-width:500px;margin:0 auto 2.5rem;line-height:1.9}
+.connect-btns{display:flex;justify-content:center;gap:1rem;flex-wrap:wrap;margin-bottom:3.5rem}
+.ci-row{display:flex;justify-content:center;gap:3rem;padding-top:2.5rem;border-top:1px solid rgba(255,255,255,0.07);flex-wrap:wrap}
+.ci{text-align:center}
+.ci-l{font-size:0.6rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.22);margin-bottom:0.3rem}
+.ci-v{font-size:0.85rem;color:rgba(255,255,255,0.55)}
 
+/* ── FOOTER ── */
+footer{background:#050810;padding:1.5rem 5%;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem;position:relative;z-index:2}
+footer p{font-size:0.68rem;color:rgba(255,255,255,0.15);font-family:var(--mono)}
+
+/* ── REVEAL ANIMATIONS ── */
+.reveal{opacity:0;transform:translateY(30px);transition:all 0.7s cubic-bezier(0.25,0.46,0.45,0.94)}
+.reveal.vis{opacity:1;transform:translateY(0)}
+.reveal-l{opacity:0;transform:translateX(-30px);transition:all 0.7s cubic-bezier(0.25,0.46,0.45,0.94)}
+.reveal-l.vis{opacity:1;transform:translateX(0)}
+.reveal-r{opacity:0;transform:translateX(30px);transition:all 0.7s cubic-bezier(0.25,0.46,0.45,0.94)}
+.reveal-r.vis{opacity:1;transform:translateX(0)}
+
+/* ── RESPONSIVE ── */
 @media(max-width:900px){
-  .hero-stats-bar{flex-wrap:wrap}
-  .stat-item{flex:1 1 45%;border-bottom:1px solid rgba(15,25,35,0.08)}
-  .proj-grid{grid-template-columns:1fr}
-  .pcard.feat{grid-column:span 1}
-  .about-grid,.ac-grid{grid-template-columns:1fr}
-  nav{padding:1rem 5%}
-  .nav-links{display:none}
+  .nav-links,.nav-cta{display:none}
+  .hamburger{display:flex}
+  .about-grid{grid-template-columns:1fr;gap:3rem}
+  .life-grid,.can-grid,.proj-grid{grid-template-columns:1fr 1fr}
+  .pcard.sp2,.life-span2{grid-column:span 2}
+  .ac-grid{grid-template-columns:1fr}
+  .traits-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:600px){
+  .life-grid,.can-grid,.proj-grid{grid-template-columns:1fr}
+  .pcard.sp2,.life-span2{grid-column:span 1}
+  .ac-grid{grid-template-columns:1fr}
+  .traits-grid{grid-template-columns:1fr}
+  .hero-stats{flex-direction:column;gap:1.5rem}
+  .hs{border-right:none;padding-right:0;margin-right:0;padding-bottom:1rem;border-bottom:1px solid rgba(255,255,255,0.08)}
+  .hs:last-child{border-bottom:none;padding-bottom:0}
+  .ci-row{gap:1.5rem}
 }
 </style>
 </head>
 <body>
 
-<nav>
-  <a href="#" class="nav-logo">Niyati <span>Gajjar</span></a>
+<!-- LOADER -->
+<div class="loader" id="loader">
+  <div class="loader-logo">Niyati Gajjar</div>
+  <div class="loader-bar"><div class="loader-fill"></div></div>
+  <div class="loader-text2">loading portfolio...</div>
+</div>
+
+<!-- CURSOR -->
+<div class="cur" id="cur"></div>
+<div class="cur-r" id="curR"></div>
+
+<!-- THREE.JS CANVAS -->
+<canvas id="three-canvas"></canvas>
+
+<!-- MOBILE MENU -->
+<div class="mob-menu" id="mobMenu">
+  <button class="mob-close" id="mobClose">✕</button>
+  <a href="#cando" onclick="closeMob()">Skills</a>
+  <a href="#projects" onclick="closeMob()">Projects</a>
+  <a href="#experience" onclick="closeMob()">Experience</a>
+  <a href="#academic" onclick="closeMob()">Academic</a>
+  <a href="#about" onclick="closeMob()">About</a>
+  <a href="#life" onclick="closeMob()">Life</a>
+  <a href="#connect" onclick="closeMob()">Connect</a>
+</div>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="#" class="nav-logo">Niyati <span>G.</span></a>
   <ul class="nav-links">
-    <li><a href="#about">About</a></li>
+    <li><a href="#cando">Skills</a></li>
     <li><a href="#projects">Projects</a></li>
-    <li><a href="#code">Code</a></li>
     <li><a href="#experience">Experience</a></li>
     <li><a href="#academic">Academic</a></li>
-    <li><a href="#contact">Contact</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#life">Life</a></li>
   </ul>
+  <a href="#connect" class="nav-cta">Let's Connect</a>
+  <div class="hamburger" id="ham"><span></span><span></span><span></span></div>
 </nav>
 
 <!-- HERO -->
 <section class="hero" id="home">
-  <div class="hero-left">
-    <div class="hero-eyebrow">Philadelphia, PA · OPT &amp; STEM OPT Eligible</div>
-    <h1>Niyati <em>Gajjar</em> — <span class="line2">Engineering Management &amp; PM</span></h1>
-    <p class="hero-desc">Technical project lead turned Engineering Management graduate student at Temple University. I build IoT systems, coordinate cross-functional teams, and bridge the gap between code and business outcomes. Targeting <strong>Project Coordinator, Operations Coordinator &amp; Technical PM</strong> roles.</p>
-    <div class="hero-pills">
-      <span class="pill pill-dark">MS Engineering Management</span>
-      <span class="pill pill-accent">IoT Systems</span>
-      <span class="pill pill-blue">Python · Django</span>
-      <span class="pill pill-outline">Temple University</span>
-      <span class="pill pill-gold">Philadelphia, PA</span>
-    </div>
-    <div class="hero-cta">
-      <a href="#projects" class="btn btn-primary">View My Work</a>
-      <a href="#contact" class="btn btn-ghost">Get In Touch</a>
-    </div>
+  <div class="hero-badge">
+    <div class="pulse-dot"></div>
+    Available for new roles · Philadelphia, PA · OPT & STEM OPT Eligible
   </div>
-  <div class="hero-stats-bar">
-    <div class="stat-item"><div class="stat-num">6+</div><div class="stat-label">Industry Projects</div></div>
-    <div class="stat-item"><div class="stat-num">2+</div><div class="stat-label">Years Experience</div></div>
-    <div class="stat-item"><div class="stat-num">40+</div><div class="stat-label">Weekly IT Requests Managed</div></div>
-    <div class="stat-item"><div class="stat-num">7+</div><div class="stat-label">Technologies Used</div></div>
+  <h1 class="hero-name">
+    <span class="line-accent">Engineer.</span>
+    <span class="line-solid">Problem Solver.</span>
+  </h1>
+  <div class="hero-role">MS Engineering Management · <span>Temple University</span></div>
+  <p class="hero-desc">I get energized by <strong>real work</strong> — talking to clients, understanding what they actually need, coordinating teams, and delivering things that matter. I bridge the gap between technical execution and human outcomes.</p>
+  <div class="hero-btns">
+    <a href="#projects" class="btn btn-glow">Explore My Work →</a>
+    <a href="#connect" class="btn btn-glass">Let's Talk</a>
+  </div>
+  <div class="hero-stats">
+    <div class="hs"><div class="hs-num" data-target="6">0+</div><div class="hs-lbl">Industry Projects</div></div>
+    <div class="hs"><div class="hs-num" data-target="2">0+</div><div class="hs-lbl">Years Experience</div></div>
+    <div class="hs"><div class="hs-num" data-target="40">0+</div><div class="hs-lbl">Weekly IT Requests</div></div>
+    <div class="hs"><div class="hs-num" data-target="4">0</div><div class="hs-lbl">Academic Projects</div></div>
   </div>
 </section>
 
-<!-- ABOUT -->
-<section id="about">
-  <div class="section-header">
-    <div class="eyebrow">Who I Am</div>
-    <h2 class="sec-title">Technical skills meet <em>management thinking</em></h2>
-  </div>
-  <div class="about-grid">
-    <div class="about-text">
-      <p>I started as an embedded systems developer in India, building real industrial IoT solutions — writing Python, designing PCBs, coordinating hardware and software engineers, and documenting everything so thoroughly that someone else could take over seamlessly.</p>
-      <p>Now I'm completing my <strong>MS in Engineering Management at Temple University</strong>, deliberately building the management layer on top of my technical foundation. I can write the Python script <em>and</em> run the stakeholder meeting about it.</p>
-      <p>I'm targeting roles where both skills matter — <strong>Technical Project Manager, Operations Coordinator, Associate PM</strong></p>
-      <div class="facts">
-        <div class="fact"><span class="fact-lbl">Education</span><span class="fact-val">MS Engineering Management, Temple University (2024–2026)</span></div>
-        <div class="fact b"><span class="fact-lbl">Location</span><span class="fact-val">Philadelphia, PA · Open to Remote &amp; Hybrid</span></div>
-        <div class="fact g"><span class="fact-lbl">Work Auth</span><span class="fact-val">OPT Eligible · STEM OPT Extension · Based in Philadelphia</span></div>
-      </div>
+<!-- WHAT I CAN DO -->
+<section id="cando" class="can-sec">
+  <div class="sec-wrap">
+    <div class="reveal">
+      <div class="sec-ey">What I Can Do</div>
+      <h2 class="sec-t">Hire me for <em>any of these</em></h2>
+      <p class="sec-d">Technical depth + management thinking. Most people have one — I have both.</p>
     </div>
-    <div class="skill-groups">
-      <div>
-        <div class="sg-title">Technical Skills</div>
-        <div class="sg-tags">
-          <span class="stag t">Python</span><span class="stag t">Django</span><span class="stag t">SQL</span><span class="stag t">HTML/CSS</span><span class="stag t">Arduino</span><span class="stag t">STM32</span><span class="stag t">ESP8266</span><span class="stag t">Selenium</span><span class="stag t">REST APIs</span><span class="stag t">Regex</span><span class="stag t">IoT Systems</span><span class="stag t">Serial Comm.</span><span class="stag t">PCB Design</span><span class="stag t">Telegram Bot API</span>
-        </div>
-      </div>
-      <div>
-        <div class="sg-title">Management &amp; PM Skills</div>
-        <div class="sg-tags">
-          <span class="stag m">Project Coordination</span><span class="stag m">Stakeholder Management</span><span class="stag m">Requirements Gathering</span><span class="stag m">Cross-functional Teams</span><span class="stag m">Process Documentation</span><span class="stag m">Risk Management</span><span class="stag m">Design Thinking</span><span class="stag m">User Research</span><span class="stag m">RACI / WBS</span>
-        </div>
-      </div>
-      <div>
-        <div class="sg-title">Tools &amp; Platforms</div>
-        <div class="sg-tags">
-          <span class="stag o">Microsoft Project</span><span class="stag o">Jira</span><span class="stag o">MS Office 365</span><span class="stag o">Git</span><span class="stag o">Canva</span><span class="stag o">ServiceNow</span><span class="stag o">Google Forms</span><span class="stag o">Otter.ai</span>
-        </div>
-      </div>
+    <div class="can-grid">
+      <div class="can-card cc1 reveal"><div class="cc-icon">📋</div><div class="cc-title">Project Coordination</div><div class="cc-desc">Managing timelines, stakeholders, and deliverables across cross-functional teams — in real industrial projects, not just in class.</div><div class="cc-tags"><span class="cctag">Jira</span><span class="cctag">MS Project</span><span class="cctag">SOPs</span><span class="cctag">RACI</span></div></div>
+      <div class="can-card cc2 reveal"><div class="cc-icon">🤝</div><div class="cc-title">Stakeholder Management</div><div class="cc-desc">I talk to clients, gather requirements, translate technical details into plain language, and keep everyone aligned from start to finish.</div><div class="cc-tags"><span class="cctag">Interviews</span><span class="cctag">Requirements</span><span class="cctag">Communication</span></div></div>
+      <div class="can-card cc3 reveal"><div class="cc-icon">⚙️</div><div class="cc-title">Python Development</div><div class="cc-desc">Data pipelines, automation scripts, web scraping, REST APIs, Django backends — all built in real production environments.</div><div class="cc-tags"><span class="cctag">Python</span><span class="cctag">Django</span><span class="cctag">REST API</span><span class="cctag">Selenium</span></div></div>
+      <div class="can-card cc4 reveal"><div class="cc-icon">🔌</div><div class="cc-title">IoT Systems</div><div class="cc-desc">Hardware-software integration from Arduino to STM32. PCB design, embedded code, and dashboards that talk to physical devices.</div><div class="cc-tags"><span class="cctag">STM32</span><span class="cctag">Arduino</span><span class="cctag">ESP8266</span><span class="cctag">PCB</span></div></div>
+      <div class="can-card cc5 reveal"><div class="cc-icon">📊</div><div class="cc-title">Operations Coordination</div><div class="cc-desc">40+ weekly service requests, inventory tracking, documentation, routing communication — I do this every day at Temple University.</div><div class="cc-tags"><span class="cctag">ServiceNow</span><span class="cctag">MS 365</span><span class="cctag">Documentation</span></div></div>
+      <div class="can-card cc6 reveal"><div class="cc-icon">💡</div><div class="cc-title">Design Thinking & Research</div><div class="cc-desc">User interviews, survey design, prototype development, stakeholder analysis — structured thinking applied to real human problems.</div><div class="cc-tags"><span class="cctag">User Research</span><span class="cctag">Prototyping</span><span class="cctag">Analysis</span></div></div>
     </div>
   </div>
 </section>
 
 <!-- PROJECTS -->
-<section id="projects" class="alt">
-  <div class="section-header">
-    <div class="eyebrow">Industry Work · QuantumBot Pvt. Ltd.</div>
-    <h2 class="sec-title">Projects built, <em>led, and shipped</em></h2>
-    <p class="sec-desc">6 real projects from 2 years at QuantumBot — not academic exercises. Each was designed, developed, documented, and delivered to clients.</p>
-  </div>
-  <div class="proj-grid">
-
-    <div class="pcard feat">
-      <div class="ctop dk" style="min-height:230px">
-        <span class="cnum">01 — Featured Project · Technical Lead</span>
-        <div>
-          <div class="ctitle lg">Automated Oil Well Depth<br>Monitoring &amp; Control System</div>
-          <div class="csub">QuantumBot Pvt. Ltd. · 7 Months · Led 4-Person Team</div>
+<section id="projects" class="proj-sec">
+  <div class="sec-wrap">
+    <div class="reveal">
+      <div class="sec-ey">Industry Work · QuantumBot Pvt. Ltd.</div>
+      <h2 class="sec-t">Projects I've <em>built and led</em></h2>
+      <p class="sec-d">6 real projects — not academic exercises. Designed, developed, documented, delivered.</p>
+    </div>
+    <div class="proj-grid">
+      <div class="pcard sp2 reveal">
+        <div class="pt dk" style="min-height:200px">
+          <span class="pnum">01 — Featured · Technical Lead</span>
+          <div><div class="ptitle lg">Automated Oil Well Depth<br>Monitoring & Control System</div><div class="psub">QuantumBot · 7 Months · 4-Person Team</div></div>
+          <div class="pbg">IoT</div>
         </div>
-        <div class="cbg">IoT</div>
-      </div>
-      <div class="cbody">
-        <p class="cdesc">End-to-end industrial IoT system for monitoring oil well depth using ultrasonic sound transducers. I led the full project — coordinating a hardware engineer and 2 web developers while personally doing all Python data pipeline and Django backend development. The system sent sound signals into the well, captured reflections, filtered noise, computed depth in real time, displayed live analytics on a multi-page dashboard, and automatically triggered a motor to refill the well when depth fell below a threshold.</p>
-        <p class="cdesc"><strong style="color:var(--ink)">Key challenge solved:</strong> Early readings were entirely false. We spent weeks rewriting the signal processing script before I led a proper root-cause analysis and determined the fault was in the hardware transducer — not the code. I coordinated a hardware modification, restored accurate readings, and documented the full debugging process for handoff.</p>
-        <div class="ctags">
-          <span class="tag tt">Python</span><span class="tag tt">Django</span><span class="tag tt">STM32</span><span class="tag tt">Arduino</span><span class="tag tt">ESP8266</span><span class="tag tt">REST API</span><span class="tag tt">Serial Comm.</span><span class="tag tt">Ultrasonic Sensors</span><span class="tag tt">PCB Design</span><span class="tag tm">Project Leadership</span><span class="tag tm">Technical Docs</span><span class="tag tm">Team Coordination</span>
-        </div>
-        <div class="metrics">
-          <div class="metric"><div class="mnum">4</div><div class="mlbl">Team Members</div></div>
-          <div class="metric"><div class="mnum">3</div><div class="mlbl">HW Iterations</div></div>
-          <div class="metric"><div class="mnum">7mo</div><div class="mlbl">Duration</div></div>
-          <div class="metric"><div class="mnum">100%</div><div class="mlbl">Documented</div></div>
+        <div class="pb">
+          <p class="pdesc">End-to-end industrial IoT — sound transducers in oil wells, STM32, Python noise filtering, Django real-time dashboard, automatic motor trigger. Led 4 people. Diagnosed a false reading issue by identifying a hardware fault — not software — through root-cause analysis. Documented everything for seamless client handoff.</p>
+          <div class="ptags"><span class="ptag t">Python</span><span class="ptag t">Django</span><span class="ptag t">STM32</span><span class="ptag t">Arduino</span><span class="ptag t">ESP8266</span><span class="ptag t">REST API</span><span class="ptag t">PCB Design</span><span class="ptag m">Project Lead</span><span class="ptag m">Team Coordination</span></div>
+          <div class="pmet"><div><div class="pm-n">4</div><div class="pm-l">Team Members</div></div><div><div class="pm-n">3</div><div class="pm-l">HW Iterations</div></div><div><div class="pm-n">7mo</div><div class="pm-l">Duration</div></div><div><div class="pm-n">100%</div><div class="pm-l">Documented</div></div></div>
         </div>
       </div>
-    </div>
-
-    <div class="pcard">
-      <div class="ctop ac">
-        <span class="cnum">02 — Solo Project</span>
-        <div><div class="ctitle">Gmail Resume<br>Scraper &amp; Parser</div><div class="csub">Python Automation</div></div>
-        <div class="cbg">Auto</div>
-      </div>
-      <div class="cbody">
-        <p class="cdesc">Built a Python script to automatically open Gmail, download every attached resume, extract candidate name, experience, and tech stack, and organize all results into a multi-sheet Excel file sorted by technology. Replaced a slow, manual process done by the HR team.</p>
-        <div class="ctags"><span class="tag tt">Python</span><span class="tag tt">Gmail API</span><span class="tag tt">PDF Parsing</span><span class="tag tt">openpyxl</span><span class="tag tm">Process Automation</span></div>
-      </div>
-    </div>
-
-    <div class="pcard">
-      <div class="ctop bl">
-        <span class="cnum">03 — Team Lead</span>
-        <div><div class="ctitle">Multi-Format Medicine<br>Data Pipeline</div><div class="csub">Weekly Delivery · Daily Targets</div></div>
-        <div class="cbg">Data</div>
-      </div>
-      <div class="cbody">
-        <p class="cdesc">Led a Python pipeline that ingested weekly medicine data files from multiple sources in different formats, matched medicine names using regex, standardized everything into a unified Excel schema, and handled errors with robust try/except logic. Managed daily delivery targets and team documentation.</p>
-        <div class="ctags"><span class="tag tt">Python</span><span class="tag tt">Pandas</span><span class="tag tt">Regex</span><span class="tag tt">openpyxl</span><span class="tag tm">Team Lead</span><span class="tag tm">Daily Targets</span></div>
-      </div>
-    </div>
-
-    <div class="pcard">
-      <div class="ctop nv">
-        <span class="cnum">04 — First Project</span>
-        <div><div class="ctitle">Event Data<br>Web Scraper</div><div class="csub">Python · Selenium</div></div>
-        <div class="cbg">Web</div>
-      </div>
-      <div class="cbody">
-        <p class="cdesc">Built a Selenium-based web scraping system to collect event URLs, names, dates, and locations from multiple websites and store them in a structured Excel database. First production Python project at QuantumBot.</p>
-        <div class="ctags"><span class="tag tt">Python</span><span class="tag tt">Selenium</span><span class="tag tt">BeautifulSoup</span><span class="tag tt">Excel Automation</span></div>
-      </div>
-    </div>
-
-    <div class="pcard">
-      <div class="ctop go">
-        <span class="cnum">05 — Team Lead</span>
-        <div><div class="ctitle">Commercial Website<br>via Telegram Bot</div><div class="csub">Python · Django · Bot API</div></div>
-        <div class="cbg">Bot</div>
-      </div>
-      <div class="cbody">
-        <p class="cdesc">Led development of a Telegram bot serving as a customer-facing entry point, routing users to a Django-powered commercial website. Handled full backend — bot logic, routing, and Django integration — while coordinating frontend team.</p>
-        <div class="ctags"><span class="tag tt">Python</span><span class="tag tt">Telegram Bot API</span><span class="tag tt">Django</span><span class="tag tm">Team Lead</span></div>
-      </div>
-    </div>
-
-    <div class="pcard">
-      <div class="ctop gr">
-        <span class="cnum">06 — Cross-team</span>
-        <div><div class="ctitle">Betting App<br>Backend API</div><div class="csub">Django REST · React Frontend</div></div>
-        <div class="cbg">API</div>
-      </div>
-      <div class="cbody">
-        <p class="cdesc">Partnered with a React developer to build a full-stack betting application. Responsible for the entire backend — Django REST API design, database schema, and all endpoints — built to the frontend developer's API contract specifications.</p>
-        <div class="ctags"><span class="tag tt">Django REST</span><span class="tag tt">Python</span><span class="tag tt">SQL</span><span class="tag tt">API Design</span><span class="tag tm">Cross-team Collab</span></div>
-      </div>
-    </div>
-
-  </div>
-</section>
-
-<!-- CODE -->
-<section class="code-sec" id="code">
-  <div class="code-hdr">
-    <div>
-      <div class="eyebrow" style="color:rgba(201,79,42,0.85)">Technical Sample</div>
-      <h2 class="sec-title" style="color:#fff">Real Python. <em style="color:var(--accent)">Real logic.</em></h2>
-    </div>
-    <div style="font-size:0.75rem;color:rgba(255,255,255,0.3);font-family:var(--mono)">oil_well_pipeline.py</div>
-  </div>
-  <div class="cw">
-    <div class="ctbar">
-      <div class="dot r"></div><div class="dot y"></div><div class="dot g"></div>
-      <span class="cfn">oil_well_pipeline.py — IoT Serial Data Ingestion &amp; Motor Alert System</span>
-    </div>
-    <div class="cbk">
-<pre><span class="cm"># Oil Well Depth Monitoring — Serial Data Pipeline
-# Niyati Gajjar · QuantumBot Pvt. Ltd.
-# Reads STM32 sensor data via serial port (50ms intervals),
-# filters noise with rolling average, computes depth,
-# sends to Django dashboard via REST API, triggers motor alert.</span>
-
-<span class="ck">import</span> <span class="cv">serial</span>, <span class="cv">requests</span>, <span class="cv">json</span>, <span class="cv">time</span>, <span class="cv">logging</span>
-<span class="ck">from</span> <span class="cv">collections</span> <span class="ck">import</span> <span class="cv">deque</span>
-<span class="ck">from</span> <span class="cv">datetime</span> <span class="ck">import</span> <span class="cv">datetime</span>
-
-<span class="cm"># ── Configuration ──────────────────────────────────</span>
-<span class="cc">SERIAL_PORT</span>     = <span class="cs">"/dev/ttyUSB0"</span>
-<span class="cc">BAUD_RATE</span>       = <span class="cn">115200</span>
-<span class="cc">SAMPLE_INTERVAL</span> = <span class="cn">0.05</span>    <span class="cm"># 50ms — millisecond-level sampling</span>
-<span class="cc">NOISE_WINDOW</span>    = <span class="cn">20</span>      <span class="cm"># rolling average window size</span>
-<span class="cc">DEPTH_THRESHOLD</span> = <span class="cn">15.0</span>   <span class="cm"># meters — trigger motor below this</span>
-<span class="cc">DJANGO_API</span>      = <span class="cs">"http://dashboard.local/api/well/readings/"</span>
-<span class="cc">MOTOR_API</span>       = <span class="cs">"http://dashboard.local/api/well/motor/trigger/"</span>
-<span class="cc">WELL_ID</span>         = <span class="cs">"WELL_001"</span>
-
-<span class="cv">log</span> = <span class="cv">logging</span>.<span class="cf">getLogger</span>(<span class="cs">__name__</span>)
-<span class="cv">logging</span>.<span class="cf">basicConfig</span>(level=<span class="cv">logging</span>.<span class="cc">INFO</span>,
-    format=<span class="cs">"%(asctime)s [%(levelname)s] %(message)s"</span>)
-
-<span class="cm"># ── Noise Filter — Rolling Average ─────────────────</span>
-<span class="cv">buffer</span> = <span class="cf">deque</span>(maxlen=<span class="cc">NOISE_WINDOW</span>)
-
-<span class="ck">def</span> <span class="cf">filter_noise</span>(<span class="cv">raw</span>: <span class="cc">float</span>) -> <span class="cc">float</span>:
-    <span class="cs">"""Smooth sensor readings with rolling average."""</span>
-    <span class="cv">buffer</span>.<span class="cf">append</span>(<span class="cv">raw</span>)
-    <span class="ck">return</span> <span class="cf">sum</span>(<span class="cv">buffer</span>) / <span class="cf">len</span>(<span class="cv">buffer</span>)
-
-<span class="cm"># ── Parse STM32 Serial Frame ────────────────────────</span>
-<span class="ck">def</span> <span class="cf">parse_frame</span>(<span class="cv">raw_bytes</span>: <span class="cc">bytes</span>) -> <span class="cc">dict</span> | <span class="ck">None</span>:
-    <span class="cs">"""Frame format: START|DEPTH|TEMP|PRESSURE|END"""</span>
-    <span class="ck">try</span>:
-        <span class="cv">frame</span> = <span class="cv">raw_bytes</span>.<span class="cf">decode</span>(<span class="cs">"utf-8"</span>).<span class="cf">strip</span>()
-        <span class="ck">if not</span> <span class="cv">frame</span>.<span class="cf">startswith</span>(<span class="cs">"START"</span>): <span class="ck">return None</span>
-        <span class="cv">p</span> = <span class="cv">frame</span>.<span class="cf">split</span>(<span class="cs">"|"</span>)
-        <span class="ck">return</span> {<span class="cs">"depth"</span>: <span class="cf">float</span>(<span class="cv">p</span>[<span class="cn">1</span>]), <span class="cs">"temp"</span>: <span class="cf">float</span>(<span class="cv">p</span>[<span class="cn">2</span>]), <span class="cs">"pressure"</span>: <span class="cf">float</span>(<span class="cv">p</span>[<span class="cn">3</span>])}
-    <span class="ck">except</span> (<span class="cc">ValueError</span>, <span class="cc">IndexError</span>): <span class="ck">return None</span>
-
-<span class="cm"># ── Push to Django Dashboard ────────────────────────</span>
-<span class="ck">def</span> <span class="cf">send_to_dashboard</span>(<span class="cv">depth</span>, <span class="cv">temp</span>, <span class="cv">pressure</span>, <span class="cv">alert</span>):
-    <span class="cv">payload</span> = {<span class="cs">"well_id"</span>: <span class="cc">WELL_ID</span>, <span class="cs">"depth_m"</span>: <span class="cf">round</span>(<span class="cv">depth</span>, <span class="cn">3</span>),
-               <span class="cs">"temperature"</span>: <span class="cv">temp</span>, <span class="cs">"pressure"</span>: <span class="cv">pressure</span>,
-               <span class="cs">"alert"</span>: <span class="cv">alert</span>, <span class="cs">"timestamp"</span>: <span class="cv">datetime</span>.<span class="cf">utcnow</span>().<span class="cf">isoformat</span>()}
-    <span class="cv">hdrs</span> = {<span class="cs">"Content-Type"</span>: <span class="cs">"application/json"</span>}
-    <span class="ck">try</span>:
-        <span class="cv">requests</span>.<span class="cf">post</span>(<span class="cc">DJANGO_API</span>, data=<span class="cv">json</span>.<span class="cf">dumps</span>(<span class="cv">payload</span>), headers=<span class="cv">hdrs</span>, timeout=<span class="cn">3</span>)
-        <span class="ck">if</span> <span class="cv">alert</span>:
-            <span class="cv">requests</span>.<span class="cf">post</span>(<span class="cc">MOTOR_API</span>, headers=<span class="cv">hdrs</span>, timeout=<span class="cn">3</span>,
-                data=<span class="cv">json</span>.<span class="cf">dumps</span>({<span class="cs">"well_id"</span>: <span class="cc">WELL_ID</span>, <span class="cs">"action"</span>: <span class="cs">"START_FILL"</span>}))
-            <span class="cv">log</span>.<span class="cf">warning</span>(<span class="cs">f"ALERT: depth {depth:.2f}m below threshold. Motor triggered."</span>)
-    <span class="ck">except</span> <span class="cc">requests</span>.<span class="cc">RequestException</span> <span class="ck">as</span> <span class="cv">e</span>:
-        <span class="cv">log</span>.<span class="cf">error</span>(<span class="cs">f"API error: {e}"</span>)
-
-<span class="cm"># ── Main Loop ───────────────────────────────────────</span>
-<span class="ck">def</span> <span class="cf">main</span>():
-    <span class="cv">log</span>.<span class="cf">info</span>(<span class="cs">f"Connecting to STM32 on {SERIAL_PORT}…"</span>)
-    <span class="ck">with</span> <span class="cv">serial</span>.<span class="cc">Serial</span>(<span class="cc">SERIAL_PORT</span>, <span class="cc">BAUD_RATE</span>, timeout=<span class="cn">1</span>) <span class="ck">as</span> <span class="cv">ser</span>:
-        <span class="cv">log</span>.<span class="cf">info</span>(<span class="cs">"Connected. Reading sensor data…"</span>)
-        <span class="ck">while True</span>:
-            <span class="cv">raw</span> = <span class="cv">ser</span>.<span class="cf">readline</span>()
-            <span class="ck">if not</span> <span class="cv">raw</span>: <span class="ck">continue</span>
-            <span class="cv">data</span> = <span class="cf">parse_frame</span>(<span class="cv">raw</span>)
-            <span class="ck">if</span> <span class="cv">data</span> <span class="ck">is None</span>: <span class="ck">continue</span>
-            <span class="cv">depth_smooth</span> = <span class="cf">filter_noise</span>(<span class="cv">data</span>[<span class="cs">"depth"</span>])
-            <span class="cf">send_to_dashboard</span>(<span class="cv">depth_smooth</span>, <span class="cv">data</span>[<span class="cs">"temp"</span>],
-                              <span class="cv">data</span>[<span class="cs">"pressure"</span>], <span class="cv">depth_smooth</span> &lt; <span class="cc">DEPTH_THRESHOLD</span>)
-            <span class="cv">time</span>.<span class="cf">sleep</span>(<span class="cc">SAMPLE_INTERVAL</span>)
-
-<span class="ck">if</span> <span class="cv">__name__</span> == <span class="cs">"__main__"</span>: <span class="cf">main</span>()</pre>
+      <div class="pcard reveal"><div class="pt ac"><span class="pnum">02 — Solo</span><div><div class="ptitle">Gmail Resume<br>Scraper & Parser</div><div class="psub">Python Automation</div></div><div class="pbg">Auto</div></div><div class="pb"><p class="pdesc">Auto-downloads resumes from Gmail, extracts candidate info, organizes into multi-sheet Excel by technology. Replaced hours of manual HR work.</p><div class="ptags"><span class="ptag t">Python</span><span class="ptag t">Gmail API</span><span class="ptag t">PDF Parsing</span><span class="ptag m">Automation</span></div></div></div>
+      <div class="pcard reveal"><div class="pt bl"><span class="pnum">03 — Lead</span><div><div class="ptitle">Medicine Data<br>Pipeline</div><div class="psub">Weekly Delivery · Daily Targets</div></div><div class="pbg">Data</div></div><div class="pb"><p class="pdesc">Multi-format ingestion pipeline — standardized weekly medicine files using regex, pandas, and try/except error handling. Managed daily targets.</p><div class="ptags"><span class="ptag t">Python</span><span class="ptag t">Pandas</span><span class="ptag t">Regex</span><span class="ptag m">Team Lead</span></div></div></div>
+      <div class="pcard reveal"><div class="pt nv"><span class="pnum">04</span><div><div class="ptitle">Event Data<br>Web Scraper</div><div class="psub">Selenium · Python</div></div><div class="pbg">Web</div></div><div class="pb"><p class="pdesc">Selenium scraper collecting event URLs, names, dates, and locations from multiple websites into structured Excel database.</p><div class="ptags"><span class="ptag t">Python</span><span class="ptag t">Selenium</span><span class="ptag t">BeautifulSoup</span></div></div></div>
+      <div class="pcard reveal"><div class="pt go"><span class="pnum">05 — Lead</span><div><div class="ptitle">Telegram Bot<br>Commerce System</div><div class="psub">Python · Django</div></div><div class="pbg">Bot</div></div><div class="pb"><p class="pdesc">Telegram bot as customer entry point routing to a Django commercial website. Led full backend and team coordination.</p><div class="ptags"><span class="ptag t">Python</span><span class="ptag t">Telegram API</span><span class="ptag t">Django</span><span class="ptag m">Lead</span></div></div></div>
+      <div class="pcard reveal"><div class="pt gr"><span class="pnum">06</span><div><div class="ptitle">Betting App<br>Backend API</div><div class="psub">Django REST · React</div></div><div class="pbg">API</div></div><div class="pb"><p class="pdesc">Full Django REST backend — API design, database schema, all endpoints — built to React developer's contract specifications.</p><div class="ptags"><span class="ptag t">Django REST</span><span class="ptag t">SQL</span><span class="ptag t">API Design</span></div></div></div>
     </div>
   </div>
 </section>
 
 <!-- EXPERIENCE -->
-<section id="experience">
-  <div class="section-header">
-    <div class="eyebrow">Work History</div>
-    <h2 class="sec-title">Where I've <em>worked &amp; delivered</em></h2>
-  </div>
-  <div class="tl">
-
-    <div class="tli vis">
-      <div class="tldot"></div>
-      <div class="tldate">May 2025 — Present</div>
-      <div class="tlrole">IT Operations &amp; Project Coordinator (Student Worker)</div>
-      <div class="tlco">Temple University · Philadelphia, PA</div>
-      <ul class="tlpts">
-        <li>Manage and prioritize 40+ weekly service requests across dental school departments via IT ticketing system</li>
-        <li>Track AV technology inventory and coordinate equipment upgrades across multiple campus buildings</li>
-        <li>Create and maintain SOPs, knowledge base documents, and process guides for campus technology rollouts</li>
-        <li>Handle front desk operations — phone intake, ticket creation, routing to technicians, follow-up communication</li>
-        <li>Support faculty with lab setups, password resets, printer/toner replacements, and software troubleshooting</li>
-        <li>Assist management in creating surveys, academic presentations, and department reports</li>
-        <li>Facilitate communication between internal IT teams and non-technical end users</li>
-      </ul>
-      <div class="tltags">
-        <span class="tag tt">ServiceNow</span><span class="tag tt">MS Office 365</span><span class="tag tt">Google Forms</span><span class="tag tm">Process Documentation</span><span class="tag tm">Stakeholder Communication</span><span class="tag tm">Inventory Management</span>
-      </div>
+<section id="experience" class="exp-sec">
+  <div class="sec-wrap">
+    <div class="reveal"><div class="sec-ey">Work History</div><h2 class="sec-t">Where I've <em>shown up</em></h2></div>
+    <div class="tl" style="margin-top:3rem">
+      <div class="tli"><div class="tldot"></div><div class="tldate">May 2025 — Present</div><div class="tlrole">IT Operations & Project Coordinator</div><div class="tlco">Temple University · Philadelphia, PA</div><ul class="tlpts"><li>Manage 40+ weekly service requests — intake, routing, follow-up, resolution tracking</li><li>Track AV technology inventory and coordinate upgrades across campus buildings</li><li>Create SOPs, knowledge base docs, and process guides for technology rollouts</li><li>Support faculty with lab setups, password resets, toner, software troubleshooting</li><li>Assist management with surveys, academic presentations, and department reports</li><li>Bridge communication between IT teams and non-technical end users</li></ul><div class="tltags"><span class="ttag">ServiceNow</span><span class="ttag">MS Office 365</span><span class="ttag">Google Forms</span><span class="ttag m">Process Documentation</span><span class="ttag m">Inventory Management</span></div></div>
+      <div class="tli"><div class="tldot b"></div><div class="tldate">Sep 2022 — Jul 2024</div><div class="tlrole">Python Developer & Technical Project Lead</div><div class="tlco">QuantumBot Pvt. Ltd. · Ahmedabad, India</div><ul class="tlpts"><li>Led end-to-end delivery of 6 projects — requirements, timelines, team coordination, handoffs</li><li>Coordinated hardware engineer and 2 web developers on IoT oil well monitoring system</li><li>Developed Python pipelines, Django apps, REST APIs, and automation scripts</li><li>Created comprehensive technical documentation enabling seamless client handoffs</li></ul><div class="tltags"><span class="ttag">Python</span><span class="ttag">Django</span><span class="ttag">STM32</span><span class="ttag">Arduino</span><span class="ttag">Selenium</span><span class="ttag m">Project Lead</span><span class="ttag m">Client Coordination</span></div></div>
+      <div class="tli"><div class="tldot g"></div><div class="tldate">Jan 2022 — Mar 2022</div><div class="tlrole">Social Media Marketing Intern</div><div class="tlco">Teq Diligent · Ahmedabad, India</div><ul class="tlpts"><li>Daily content creation using Canva targeting US market — 3 months straight</li><li>Analyzed engagement metrics to replicate high-performing content — 3-4 new users/week</li></ul><div class="tltags"><span class="ttag">Canva</span><span class="ttag m">Content Strategy</span><span class="ttag m">Analytics</span></div></div>
+      <div class="tli"><div class="tldot gr"></div><div class="tldate">Jan 2019 — Jul 2019</div><div class="tlrole">Web Development Intern</div><div class="tlco">Silverwing Technologies · Ahmedabad, India</div><ul class="tlpts"><li>Learned HTML, CSS, responsive design on real client projects from scratch</li><li>QA testing — identified and documented bugs pre-launch</li></ul><div class="tltags"><span class="ttag">HTML</span><span class="ttag">CSS</span><span class="ttag m">QA Testing</span></div></div>
     </div>
-
-    <div class="tli vis">
-      <div class="tldot b"></div>
-      <div class="tldate">Sep 2022 — Jul 2024</div>
-      <div class="tlrole">Python Developer &amp; Technical Project Lead</div>
-      <div class="tlco">QuantumBot Pvt. Ltd. · Ahmedabad, India</div>
-      <ul class="tlpts">
-        <li>Led end-to-end delivery of 6 projects — managed requirements, timelines, team coordination, and client handoffs</li>
-        <li>Coordinated hardware engineer and 2 web developers on the IoT oil well monitoring system</li>
-        <li>Developed Python data pipelines, Django web applications, REST APIs, and automation scripts</li>
-        <li>Created comprehensive technical documentation — SOPs, hardware guides, API specs, handoff manuals</li>
-        <li>Managed daily delivery targets and documented all team contributions and scripts</li>
-      </ul>
-      <div class="tltags">
-        <span class="tag tt">Python</span><span class="tag tt">Django</span><span class="tag tt">STM32</span><span class="tag tt">Arduino</span><span class="tag tt">ESP8266</span><span class="tag tt">Selenium</span><span class="tag tt">REST APIs</span><span class="tag tm">Project Lead</span><span class="tag tm">Technical Docs</span>
-      </div>
-    </div>
-
-    <div class="tli vis">
-      <div class="tldot g"></div>
-      <div class="tldate">Jan 2022 — Mar 2022</div>
-      <div class="tlrole">Social Media Marketing Intern</div>
-      <div class="tlco">Teq Diligent · Ahmedabad, India</div>
-      <ul class="tlpts">
-        <li>Created daily social media content using Canva targeting the US market for 3 months straight</li>
-        <li>Analyzed engagement metrics to identify high-performing formats and replicated winning content</li>
-        <li>Consistent daily posting strategy resulted in 3–4 new users acquired per week</li>
-      </ul>
-      <div class="tltags">
-        <span class="tag tt">Canva</span><span class="tag td">Content Strategy</span><span class="tag td">Analytics</span><span class="tag td">US Market Targeting</span>
-      </div>
-    </div>
-
-    <div class="tli vis">
-      <div class="tldot gr"></div>
-      <div class="tldate">Jan 2019 — Jul 2019</div>
-      <div class="tlrole">Web Development Intern</div>
-      <div class="tlco">Silverwing Technologies Pvt. Ltd. · Ahmedabad, India</div>
-      <ul class="tlpts">
-        <li>Learned full web stack from scratch — HTML, CSS, and responsive design on real client projects</li>
-        <li>Participated in QA processes — identified and documented bugs prior to launch</li>
-        <li>Contributed to client requirement gathering and pre-launch testing workflows</li>
-      </ul>
-      <div class="tltags">
-        <span class="tag tt">HTML</span><span class="tag tt">CSS</span><span class="tag tm">QA Testing</span><span class="tag tm">Client Requirements</span>
-      </div>
-    </div>
-
   </div>
 </section>
 
 <!-- ACADEMIC -->
-<section id="academic" class="alt">
-  <div class="section-header">
-    <div class="eyebrow">MS Engineering Management · Temple University</div>
-    <h2 class="sec-title">Academic work that <em>proves the thinking</em></h2>
-    <p class="sec-desc">Four graduate-level projects demonstrating design thinking, user research, AI literacy, and project management — applied problem-solving, not just coursework.</p>
-  </div>
-  <div class="ac-grid">
-
-    <div class="accard">
-      <div class="accourse">Design Thinking Course · 2025</div>
-      <div class="actitle">"Locals" — Homemade Food Marketplace App</div>
-      <p class="acdesc">Designed a two-sided marketplace connecting home cooks (aunties, chefs from diverse communities, cultures, and religions) with students who need affordable, culturally familiar food. Inspired by personal experience as an international student without a car or time to cook. Conducted user interviews with students and potential cooks, prototyped the full dashboard, and validated the concept through the complete design thinking cycle.</p>
-      <div class="achls">
-        <div class="hl">Conducted stakeholder interviews with students and home cooks</div>
-        <div class="hl">Uber Eats + Amazon marketplace model applied to home food</div>
-        <div class="hl">Designed cook profiles, review system, and order dashboard</div>
-        <div class="hl">Full cycle: empathize → define → ideate → prototype → test</div>
-      </div>
-      <div class="ctags" style="margin-top:1rem;display:flex;flex-wrap:wrap;gap:0.35rem">
-        <span class="tag td">Design Thinking</span><span class="tag tm">User Research</span><span class="tag tm">Prototyping</span><span class="tag tm">Stakeholder Interviews</span>
-      </div>
+<section id="academic" class="ac-sec">
+  <div class="sec-wrap">
+    <div class="reveal"><div class="sec-ey">MS Engineering Management · Temple University</div><h2 class="sec-t">Academic work that <em>proves the thinking</em></h2><p class="sec-d">Four graduate projects — design thinking, user research, AI literacy, project management.</p></div>
+    <div class="ac-grid">
+      <div class="accard reveal"><div class="ac-top-bar a"></div><div class="ac-pad"><div class="ac-course">Design Thinking · 2025</div><div class="ac-title">"Locals" — Homemade Food Marketplace App</div><p class="ac-desc">Two-sided marketplace connecting home cooks with students needing affordable, culturally familiar food. Inspired by personal experience as an international student. Full design thinking cycle.</p><div class="ac-hls"><div class="ahl">Stakeholder interviews with students and home cooks</div><div class="ahl">Uber Eats + Amazon model applied to home food problem</div><div class="ahl">Designed cook profiles, reviews, and order dashboard</div></div></div></div>
+      <div class="accard reveal"><div class="ac-top-bar b"></div><div class="ac-pad"><div class="ac-course">AI for Managers · 2025</div><div class="ac-title">SoundShield — Smart Jewelry for Autism</div><p class="ac-desc">IoT wearable (earrings, bracelet, necklace) with Bluetooth sensing detecting autism sound triggers from a distance, creating a protective buffer. Problem from faculty advisor's active research.</p><div class="ac-hls"><div class="ahl">Real problem from faculty autism research</div><div class="ahl">AI tools used for research refinement and design visuals</div><div class="ahl">Research paper + faculty presentation delivered</div></div></div></div>
+      <div class="accard reveal"><div class="ac-top-bar g"></div><div class="ac-pad"><div class="ac-course">Creativity Unleashed · 2025</div><div class="ac-title">Innovation Culture Research & Analysis</div><p class="ac-desc">3 in-depth stakeholder interviews + 16-respondent survey spanning intern to director roles. Key finding: 81% say ideas are discussed but rarely implemented.</p><div class="ac-hls"><div class="ahl">Video, phone & online interviews across 3 industries</div><div class="ahl">16 respondents — intern to director level</div><div class="ahl">Original interview guide and survey methodology</div></div></div></div>
+      <div class="accard reveal"><div class="ac-top-bar gr"></div><div class="ac-pad"><div class="ac-course">Intro to Project Management · 2024</div><div class="ac-title">IoT Project Charter & Gantt Planning</div><p class="ac-desc">Applied PMBOK to the real QuantumBot project — project charter, stakeholder register, risk register, and Microsoft Project Gantt chart. Coordinated distributed remote + in-person team.</p><div class="ac-hls"><div class="ahl">Charter based on real 7-month industry project</div><div class="ahl">Full Gantt chart in Microsoft Project</div><div class="ahl">Managed remote + in-person distributed team</div></div></div></div>
     </div>
-
-    <div class="accard b">
-      <div class="accourse">AI for Managers · Special Topics · 2025</div>
-      <div class="actitle">SoundShield — Smart Jewelry for Autism Sensory Protection</div>
-      <p class="acdesc">Independently researched and designed an IoT-powered wearable solution for individuals with autism who experience sound-triggered sensory overload. Proposed smart jewelry (earrings, bracelet, necklace) with Bluetooth-enabled sound sensing that detects triggering sounds from a distance and creates a personalized sound buffer — wearable as fashion, protective as therapy. Problem sourced directly from faculty advisor's active research.</p>
-      <div class="achls">
-        <div class="hl">Problem sourced from faculty advisor researching autism assistive tech</div>
-        <div class="hl">Applied real IoT background to design a credible technical architecture</div>
-        <div class="hl">Used AI tools to refine paper and generate wearable design visuals</div>
-        <div class="hl">Delivered formal research paper + presentation to course advisor</div>
-      </div>
-      <div class="ctags" style="margin-top:1rem;display:flex;flex-wrap:wrap;gap:0.35rem">
-        <span class="tag tt">IoT Design</span><span class="tag tt">Bluetooth</span><span class="tag td">AI-Assisted Research</span><span class="tag tm">Independent Study</span>
-      </div>
-    </div>
-
-    <div class="accard g">
-      <div class="accourse">Creativity Unleashed · Group Research · 2025</div>
-      <div class="actitle">Innovation Culture — Interviews, Surveys &amp; Data Analysis</div>
-      <p class="acdesc">Led interview design and conducted 3 in-depth stakeholder interviews across a travel company director, an operations manager, and a graduate research assistant — exploring how organizations build innovation cultures. Designed a 10-question survey, collected 16 responses across roles from intern to director, and analyzed results to surface actionable insights on barriers, motivators, and enablers of workplace creativity.</p>
-      <div class="achls">
-        <div class="hl">3 primary interviews — video, phone, and online formats</div>
-        <div class="hl">16 survey respondents spanning entry-level to director roles</div>
-        <div class="hl">Key finding: 81% see ideas discussed but rarely implemented</div>
-        <div class="hl">Developed original interview guide and survey methodology independently</div>
-      </div>
-      <div class="ctags" style="margin-top:1rem;display:flex;flex-wrap:wrap;gap:0.35rem">
-        <span class="tag tm">Stakeholder Interviews</span><span class="tag tm">Survey Design</span><span class="tag tm">Data Analysis</span><span class="tag td">Research Methods</span>
-      </div>
-    </div>
-
-    <div class="accard gr">
-      <div class="accourse">Introduction to Project Management · 2024</div>
-      <div class="actitle">IoT Project Charter &amp; MS Project Gantt Planning</div>
-      <p class="acdesc">Applied formal PMBOK project management methodology to the QuantumBot IoT oil well project — creating a complete project charter, stakeholder register, scope statement, milestone schedule, and risk register. Used Microsoft Project to build a full Gantt chart. Also managed a distributed academic team with remote and in-person members, coordinating asynchronous deliverables and group activities.</p>
-      <div class="achls">
-        <div class="hl">Created project charter based on real 7-month industry project</div>
-        <div class="hl">Built Gantt chart and milestone tracker in Microsoft Project</div>
-        <div class="hl">Managed distributed team across remote and in-person members</div>
-        <div class="hl">Applied PMBOK frameworks retrospectively to real project experience</div>
-      </div>
-      <div class="ctags" style="margin-top:1rem;display:flex;flex-wrap:wrap;gap:0.35rem">
-        <span class="tag td">Microsoft Project</span><span class="tag tm">Project Charter</span><span class="tag tm">Gantt Chart</span><span class="tag tm">Risk Register</span><span class="tag tm">PMBOK</span>
-      </div>
-    </div>
-
   </div>
 </section>
 
-<!-- CONTACT -->
-<section class="contact-sec" id="contact">
-  <div class="eyebrow" style="color:rgba(201,79,42,0.8);justify-content:center;display:inline-flex;align-items:center;gap:0.6rem;margin-bottom:0.8rem">
-    <span style="width:24px;height:1.5px;background:rgba(201,79,42,0.8);display:inline-block"></span>Let's Connect
+<!-- CODE -->
+<section class="code-sec" id="code">
+  <div class="sec-wrap">
+    <div class="reveal" style="display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:1rem;margin-bottom:2rem">
+      <div><div class="sec-ey">Technical Sample</div><h2 class="sec-t" style="color:#fff">Real Python. <em>Real logic.</em></h2></div>
+      <div style="font-size:0.72rem;color:rgba(255,255,255,0.2);font-family:var(--mono)">oil_well_pipeline.py</div>
+    </div>
+    <div class="cw reveal">
+      <div class="ctbar"><div class="dot r"></div><div class="dot y"></div><div class="dot g"></div><span class="cfn">oil_well_pipeline.py — IoT Serial Data Ingestion & Motor Alert System</span></div>
+      <div class="cbk">
+<pre><span class="cm"># Oil Well Depth Monitoring — Niyati Gajjar · QuantumBot Pvt. Ltd.
+# Serial data from STM32 → noise filter → Django dashboard → motor trigger</span>
+
+<span class="ck">import</span> <span class="cv">serial</span>, <span class="cv">requests</span>, <span class="cv">json</span>, <span class="cv">time</span>, <span class="cv">logging</span>
+<span class="ck">from</span> <span class="cv">collections</span> <span class="ck">import</span> <span class="cv">deque</span>
+<span class="ck">from</span> <span class="cv">datetime</span> <span class="ck">import</span> <span class="cv">datetime</span>
+
+<span class="cc">SERIAL_PORT</span>     = <span class="cs">"/dev/ttyUSB0"</span>
+<span class="cc">BAUD_RATE</span>       = <span class="cn">115200</span>
+<span class="cc">SAMPLE_INTERVAL</span> = <span class="cn">0.05</span>    <span class="cm"># 50ms — millisecond sampling</span>
+<span class="cc">DEPTH_THRESHOLD</span> = <span class="cn">15.0</span>   <span class="cm"># meters — motor triggers below this</span>
+<span class="cc">DJANGO_API</span>      = <span class="cs">"http://dashboard.local/api/well/readings/"</span>
+
+<span class="cv">buffer</span> = <span class="cf">deque</span>(maxlen=<span class="cn">20</span>)  <span class="cm"># rolling average for noise filtering</span>
+
+<span class="ck">def</span> <span class="cf">filter_noise</span>(<span class="cv">raw</span>):
+    <span class="cv">buffer</span>.<span class="cf">append</span>(<span class="cv">raw</span>)
+    <span class="ck">return</span> <span class="cf">sum</span>(<span class="cv">buffer</span>) / <span class="cf">len</span>(<span class="cv">buffer</span>)
+
+<span class="ck">def</span> <span class="cf">parse_frame</span>(<span class="cv">raw_bytes</span>):
+    <span class="ck">try</span>:
+        <span class="cv">p</span> = <span class="cv">raw_bytes</span>.<span class="cf">decode</span>(<span class="cs">"utf-8"</span>).<span class="cf">strip</span>().<span class="cf">split</span>(<span class="cs">"|"</span>)
+        <span class="ck">if</span> <span class="cv">p</span>[<span class="cn">0</span>] != <span class="cs">"START"</span>: <span class="ck">return None</span>
+        <span class="ck">return</span> {<span class="cs">"depth"</span>: <span class="cf">float</span>(<span class="cv">p</span>[<span class="cn">1</span>]), <span class="cs">"temp"</span>: <span class="cf">float</span>(<span class="cv">p</span>[<span class="cn">2</span>]), <span class="cs">"pressure"</span>: <span class="cf">float</span>(<span class="cv">p</span>[<span class="cn">3</span>])}
+    <span class="ck">except</span>: <span class="ck">return None</span>
+
+<span class="ck">def</span> <span class="cf">send_to_dashboard</span>(<span class="cv">depth</span>, <span class="cv">temp</span>, <span class="cv">pressure</span>, <span class="cv">alert</span>):
+    <span class="ck">try</span>:
+        <span class="cv">requests</span>.<span class="cf">post</span>(<span class="cc">DJANGO_API</span>, json={
+            <span class="cs">"depth_m"</span>: <span class="cf">round</span>(<span class="cv">depth</span>, <span class="cn">3</span>), <span class="cs">"temp"</span>: <span class="cv">temp</span>,
+            <span class="cs">"alert"</span>: <span class="cv">alert</span>, <span class="cs">"ts"</span>: <span class="cv">datetime</span>.<span class="cf">utcnow</span>().<span class="cf">isoformat</span>()
+        }, timeout=<span class="cn">3</span>)
+        <span class="ck">if</span> <span class="cv">alert</span>: <span class="cv">logging</span>.<span class="cf">warning</span>(<span class="cs">f"⚠ Depth {depth:.2f}m — Motor triggered"</span>)
+    <span class="ck">except Exception as</span> <span class="cv">e</span>: <span class="cv">logging</span>.<span class="cf">error</span>(<span class="cs">f"API: {e}"</span>)
+
+<span class="ck">def</span> <span class="cf">main</span>():
+    <span class="ck">with</span> <span class="cv">serial</span>.<span class="cc">Serial</span>(<span class="cc">SERIAL_PORT</span>, <span class="cc">BAUD_RATE</span>, timeout=<span class="cn">1</span>) <span class="ck">as</span> <span class="cv">ser</span>:
+        <span class="ck">while True</span>:
+            <span class="cv">data</span> = <span class="cf">parse_frame</span>(<span class="cv">ser</span>.<span class="cf">readline</span>())
+            <span class="ck">if not</span> <span class="cv">data</span>: <span class="ck">continue</span>
+            <span class="cv">d</span> = <span class="cf">filter_noise</span>(<span class="cv">data</span>[<span class="cs">"depth"</span>])
+            <span class="cf">send_to_dashboard</span>(<span class="cv">d</span>, <span class="cv">data</span>[<span class="cs">"temp"</span>], <span class="cv">data</span>[<span class="cs">"pressure"</span>], <span class="cv">d</span> &lt; <span class="cc">DEPTH_THRESHOLD</span>)
+            <span class="cv">time</span>.<span class="cf">sleep</span>(<span class="cc">SAMPLE_INTERVAL</span>)
+
+<span class="ck">if</span> <span class="cv">__name__</span> == <span class="cs">"__main__"</span>: <span class="cf">main</span>()</pre>
+      </div>
+    </div>
   </div>
-  <h2 class="ctitle2">Open to opportunities<br><em>across the US</em></h2>
-  <p class="cdesc2">Targeting Project Coordinator, Operations Coordinator, and Technical PM roles. OPT &amp; STEM OPT eligible. Based in Philadelphia, open to remote and hybrid.</p>
-  <div class="clinks">
-    <a href="/cdn-cgi/l/email-protection#6d1918185c5f5e5e5d2d1908001d010843080918" class="clink p">✉ Email Me</a>
-    <a href="https://www.linkedin.com/in/niyati-gajjar-/" target="_blank" class="clink gh">LinkedIn Profile</a>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="sec-wrap about-sec">
+    <div class="about-grid">
+      <div class="reveal-l">
+        <div class="monogram-3d">
+          <div class="monogram-inner">
+            <div class="mono-front"><span>NG</span></div>
+            <div class="mono-back">
+              <p>Engineer · PM · Problem Solver · People Person</p>
+              <span class="mono-hint">hover to flip</span>
+            </div>
+          </div>
+        </div>
+        <div class="sec-ey">Who I Am</div>
+        <h2 class="sec-t">More than a<br><em>résumé</em></h2>
+        <p class="about-desc">I started as an embedded systems developer in India — writing Python, designing PCBs, coordinating teams, documenting everything. Now I'm completing my <strong>MS in Engineering Management at Temple University</strong>.</p>
+        <p class="about-desc">I can write the Python script <strong>and</strong> run the stakeholder meeting about it. That combination is rare — and that's exactly what I bring.</p>
+        <div class="quote-block">
+          <p>"I like doing real work — talking with clients, understanding their requirements, then delivering the project. That's what gets me excited every day."</p>
+        </div>
+      </div>
+      <div class="reveal-r">
+        <div class="sec-ey">What makes me, me</div>
+        <div class="traits-grid">
+          <div class="trait"><div class="ti">🔥</div><div class="tn">Hardworking</div><div class="td-t">Pressure doesn't scare me — it focuses me. I don't stop until it's done right.</div></div>
+          <div class="trait"><div class="ti">🔍</div><div class="tn">Curious</div><div class="td-t">I ask "why" constantly. Every problem has a root cause worth finding.</div></div>
+          <div class="trait"><div class="ti">🤝</div><div class="tn">Team-first</div><div class="td-t">Working with people energizes me. I make work feel less like work.</div></div>
+          <div class="trait"><div class="ti">🗂️</div><div class="tn">Organized</div><div class="td-t">Chaos is temporary. I turn it into structure and a plan that works.</div></div>
+          <div class="trait"><div class="ti">⚡</div><div class="tn">Problem Solver</div><div class="td-t">Give me a hard problem. I'll find solutions and pick the one that sticks.</div></div>
+          <div class="trait"><div class="ti">💬</div><div class="tn">Connector</div><div class="td-t">People share their problems with me — and they know I'll actually help.</div></div>
+        </div>
+      </div>
+    </div>
   </div>
-  <div class="cinfo">
-    <div><div class="ci-lbl">Email</div><div class="ci-val"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="6216171753505151522216070f120e074c070617">[email&#160;protected]</a></div></div>
-    <div><div class="ci-lbl">Location</div><div class="ci-val">Philadelphia, PA</div></div>
-    <div><div class="ci-lbl">Availability</div><div class="ci-val">Immediate · OPT Ready</div></div>
-    <div><div class="ci-lbl">Target Roles</div><div class="ci-val">PM · Coordinator · TPM</div></div>
+</section>
+
+<!-- LIFE — FLIP CARDS -->
+<section id="life" class="life-sec">
+  <div class="sec-wrap">
+    <div class="reveal">
+      <div class="sec-ey">Life Outside Work</div>
+      <h2 class="sec-t">The person behind <em>the portfolio</em></h2>
+      <p class="sec-d">Hover the cards to flip them — work is what I do, this is who I am.</p>
+    </div>
+    <div class="life-grid reveal">
+      <div class="flip-wrap life-span2 tall">
+        <div class="flip-inner">
+          <div class="flip-front" style="background:linear-gradient(135deg,#1a0f05,#2a1505)">
+            <div class="flip-front-bg">✈️</div>
+            <div class="flip-front-overlay"></div>
+            <div class="flip-front-content">
+              <div class="ff-title">Traveler at Heart</div>
+              <div class="ff-sub">Hover to read more →</div>
+            </div>
+          </div>
+          <div class="flip-back gold">
+            <div class="fb-icon">✈️</div>
+            <div class="fb-text">Exploring new places resets my mind. Every city teaches me something about how people solve problems differently — and I bring that back to my work and how I collaborate with teams.</div>
+          </div>
+        </div>
+      </div>
+      <div class="flip-wrap tall">
+        <div class="flip-inner">
+          <div class="flip-front" style="background:linear-gradient(135deg,#0a0a1a,#1a1a2a)">
+            <div class="flip-front-bg">🎵</div>
+            <div class="flip-front-overlay"></div>
+            <div class="flip-front-content">
+              <div class="ff-title">Music Lover</div>
+              <div class="ff-sub">My constant companion →</div>
+            </div>
+          </div>
+          <div class="flip-back purple">
+            <div class="fb-icon">🎵</div>
+            <div class="fb-text">Music is my background noise, focus state, and mood reset — all in one. It helps me think clearer when problems get complex.</div>
+          </div>
+        </div>
+      </div>
+      <div class="flip-wrap">
+        <div class="flip-inner">
+          <div class="flip-front" style="background:linear-gradient(135deg,#1a0a1a,#2a1a2a)">
+            <div class="flip-front-bg">🎨</div>
+            <div class="flip-front-overlay"></div>
+            <div class="flip-front-content">
+              <div class="ff-title">Art & Craft</div>
+              <div class="ff-sub">Making things →</div>
+            </div>
+          </div>
+          <div class="flip-back dark">
+            <div class="fb-icon">🎨</div>
+            <div class="fb-text">I love making things with my hands. Creating something from scratch is deeply satisfying — whether it's a Python script or a handmade craft.</div>
+          </div>
+        </div>
+      </div>
+      <div class="flip-wrap">
+        <div class="flip-inner">
+          <div class="flip-front" style="background:linear-gradient(135deg,#0a1a0a,#1a2a1a)">
+            <div class="flip-front-bg">📺</div>
+            <div class="flip-front-overlay"></div>
+            <div class="flip-front-content">
+              <div class="ff-title">Documentary Nerd</div>
+              <div class="ff-sub">How the world works →</div>
+            </div>
+          </div>
+          <div class="flip-back green">
+            <div class="fb-icon">📺</div>
+            <div class="fb-text">Netflix documentaries are my weakness. I love learning how the world actually works behind the scenes — the real stories behind big things.</div>
+          </div>
+        </div>
+      </div>
+      <div class="flip-wrap">
+        <div class="flip-inner">
+          <div class="flip-front" style="background:linear-gradient(135deg,#1a1a0a,#2a2a0a)">
+            <div class="flip-front-bg">📚</div>
+            <div class="flip-front-overlay"></div>
+            <div class="flip-front-content">
+              <div class="ff-title">Reader</div>
+              <div class="ff-sub">Slowing down →</div>
+            </div>
+          </div>
+          <div class="flip-back blue">
+            <div class="fb-icon">📚</div>
+            <div class="fb-text">Books slow me down in the best way. They give me perspective when work feels overwhelming and remind me of what actually matters.</div>
+          </div>
+        </div>
+      </div>
+      <div class="flip-wrap">
+        <div class="flip-inner">
+          <div class="flip-front" style="background:linear-gradient(135deg,#0a1a1a,#0a2a2a)">
+            <div class="flip-front-bg">🧘</div>
+            <div class="flip-front-overlay"></div>
+            <div class="flip-front-content">
+              <div class="ff-title">Mind Reset</div>
+              <div class="ff-sub">Finding clarity →</div>
+            </div>
+          </div>
+          <div class="flip-back" style="background:linear-gradient(135deg,#1a3a3a,#0a2a2a)">
+            <div class="fb-icon">🧘</div>
+            <div class="fb-text">When my mind is off track, I organize things — my space, my thoughts, my tasks. Clarity always follows. Structure is how I reset.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONNECT -->
+<section id="connect" class="connect-sec">
+  <div class="sec-wrap">
+    <div class="reveal">
+      <div class="sec-ey" style="justify-content:center">Let's Talk</div>
+      <h2 class="connect-title">I'd love to<br><em>connect with you</em></h2>
+      <p class="connect-desc">Whether you're a recruiter, a potential teammate, or just someone who wants to talk about IoT, travel, or good documentaries — my inbox is always open.</p>
+      <div class="connect-btns">
+        <a href="/cdn-cgi/l/email-protection#7b0f0e0e4a4948484b3b0f1e160b171e551e1f0e" class="btn btn-glow">✉ Send Me an Email</a>
+        <a href="https://www.linkedin.com/in/niyati-gajjar-/" target="_blank" class="btn btn-glass">Connect on LinkedIn →</a>
+      </div>
+      <div class="ci-row">
+        <div class="ci"><div class="ci-l">Email</div><div class="ci-v"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="6c1819195d5e5f5f5c2c1809011c000942090819">[email&#160;protected]</a></div></div>
+        <div class="ci"><div class="ci-l">Location</div><div class="ci-v">Philadelphia, PA</div></div>
+        <div class="ci"><div class="ci-l">Work Auth</div><div class="ci-v">OPT · STEM OPT Eligible</div></div>
+        <div class="ci"><div class="ci-l">Open To</div><div class="ci-v">PM · Coordinator · TPM · Dev</div></div>
+      </div>
+    </div>
   </div>
 </section>
 
 <footer>
-  <p>© 2026 Niyati Gajjar</p>
+  <p>© 2026 Niyati Gajjar — Designed with intention</p>
   <p>Philadelphia, PA · Temple University MS Engineering Management</p>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-const
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+// ── LOADER
+window.addEventListener('load', () => {
+  setTimeout(() => document.getElementById('loader').classList.add('out'), 1800);
+});
+
+// ── NAV
+window.addEventListener('scroll', () => {
+  document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 50);
+});
+
+// ── MOBILE MENU
+document.getElementById('ham').addEventListener('click', () => document.getElementById('mobMenu').classList.add('open'));
+document.getElementById('mobClose').addEventListener('click', () => document.getElementById('mobMenu').classList.remove('open'));
+function closeMob(){ document.getElementById('mobMenu').classList.remove('open'); }
+
+// ── CURSOR
+const cur = document.getElementById('cur'), curR = document.getElementById('curR');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove', e => {
+  mx=e.clientX; my=e.clientY;
+  cur.style.cssText=`left:${mx-5}px;top:${my-5}px`;
+});
+(function animR(){
+  rx+=(mx-rx-16)*0.1; ry+=(my-ry-16)*0.1;
+  curR.style.cssText=`left:${rx}px;top:${ry}px`;
+  requestAnimationFrame(animR);
+})();
+document.querySelectorAll('a,button,.pcard,.flip-wrap,.can-card,.trait,.accard').forEach(el => {
+  el.addEventListener('mouseenter',()=>{cur.style.transform='scale(2.5)';curR.style.borderColor='rgba(42,127,196,0.6)';curR.style.transform='scale(1.5)'});
+  el.addEventListener('mouseleave',()=>{cur.style.transform='scale(1)';curR.style.borderColor='rgba(232,101,42,0.5)';curR.style.transform='scale(1)'});
+});
+
+// ── THREE.JS — FLOATING PARTICLES
+const canvas = document.getElementById('three-canvas');
+const renderer = new THREE.WebGLRenderer({canvas, alpha:true, antialias:true});
+renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
+renderer.setSize(window.innerWidth,window.innerHeight);
+
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(60, window.innerWidth/window.innerHeight, 0.1, 100);
+camera.position.z = 5;
+
+// Floating geometry objects
+const objects = [];
+const geometries = [
+  new THREE.IcosahedronGeometry(0.3,0),
+  new THREE.OctahedronGeometry(0.25,0),
+  new THREE.TetrahedronGeometry(0.28,0),
+  new THREE.BoxGeometry(0.3,0.3,0.3),
+  new THREE.SphereGeometry(0.18,8,8),
+];
+const colors = [0xe8652a, 0x2a7fc4, 0xd4a843, 0x3aaa6e, 0x9b6fe0, 0xe85a8a];
+
+for(let i=0;i<30;i++){
+  const geo = geometries[Math.floor(Math.random()*geometries.length)];
+  const mat = new THREE.MeshBasicMaterial({
+    color: colors[Math.floor(Math.random()*colors.length)],
+    wireframe: true,
+    transparent: true,
+    opacity: Math.random()*0.15+0.05
+  });
+  const mesh = new THREE.Mesh(geo,mat);
+  mesh.position.set(
+    (Math.random()-0.5)*20,
+    (Math.random()-0.5)*20,
+    (Math.random()-0.5)*10 - 3
+  );
+  mesh.rotation.set(Math.random()*Math.PI,Math.random()*Math.PI,Math.random()*Math.PI);
+  const speed = {
+    x: (Math.random()-0.5)*0.003,
+    y: (Math.random()-0.5)*0.003,
+    z: (Math.random()-0.5)*0.001,
+    rx: (Math.random()-0.5)*0.008,
+    ry: (Math.random()-0.5)*0.008,
+  };
+  objects.push({mesh, speed});
+  scene.add(mesh);
+}
+
+// Particle field
+const partGeo = new THREE.BufferGeometry();
+const partCount = 200;
+const positions = new Float32Array(partCount*3);
+for(let i=0;i<partCount*3;i++) positions[i]=(Math.random()-0.5)*30;
+partGeo.setAttribute('position',new THREE.BufferAttribute(positions,3));
+const partMat = new THREE.PointsMaterial({color:0xffffff,size:0.03,transparent:true,opacity:0.3});
+scene.add(new THREE.Points(partGeo,partMat));
+
+// Mouse parallax
+let mouseX=0, mouseY=0;
+document.addEventListener('mousemove',e=>{
+  mouseX=(e.clientX/window.innerWidth-0.5)*0.5;
+  mouseY=(e.clientY/window.innerHeight-0.5)*0.5;
+});
+
+// Scroll parallax
+let scrollY2=0;
+window.addEventListener('scroll',()=>{ scrollY2=window.scrollY; });
+
+function animate(){
+  requestAnimationFrame(animate);
+  const t=Date.now()*0.001;
+  objects.forEach(o=>{
+    o.mesh.rotation.x+=o.speed.rx;
+    o.mesh.rotation.y+=o.speed.ry;
+    o.mesh.position.y+=Math.sin(t+o.mesh.position.x)*0.001;
+  });
+  camera.position.x+=(mouseX-camera.position.x)*0.02;
+  camera.position.y+=(-mouseY-camera.position.y)*0.02;
+  camera.position.y-=scrollY2*0.0005;
+  renderer.render(scene,camera);
+}
+animate();
+
+window.addEventListener('resize',()=>{
+  camera.aspect=window.innerWidth/window.innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(window.innerWidth,window.innerHeight);
+});
+
+// ── SCROLL REVEAL
+const obs = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('vis'); });
+},{threshold:0.1,rootMargin:'0px 0px -40px 0px'});
+document.querySelectorAll('.reveal,.reveal-l,.reveal-r,.tli').forEach((el,i)=>{
+  el.style.transitionDelay=(i%5)*0.08+'s';
+  obs.observe(el);
+});
+
+// ── COUNTER
+const counterObs = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.querySelectorAll('.hs-num').forEach(el=>{
+        const target=parseInt(el.dataset.target);
+        const suffix=el.textContent.includes('+') ? '+' : '';
+        let n=0, step=target/40;
+        const t=setInterval(()=>{
+          n+=step;
+          if(n>=target){ el.textContent=target+suffix; clearInterval(t); return; }
+          el.textContent=Math.floor(n)+suffix;
+        },40);
+      });
+      counterObs.unobserve(e.target);
+    }
+  });
+},{threshold:0.5});
+const heroStats = document.querySelector('.hero-stats');
+if(heroStats) counterObs.observe(heroStats);
+
+// ── 3D CARD TILT on mouse move
+document.querySelectorAll('.can-card').forEach(card=>{
+  card.addEventListener('mousemove',e=>{
+    const r=card.getBoundingClientRect();
+    const x=((e.clientX-r.left)/r.width-0.5)*20;
+    const y=((e.clientY-r.top)/r.height-0.5)*-20;
+    card.style.transform=`translateY(-8px) rotateX(${y}deg) rotateY(${x}deg)`;
+    card.style.setProperty('--mx',`${((e.clientX-r.left)/r.width)*100}%`);
+    card.style.setProperty('--my',`${((e.clientY-r.top)/r.height)*100}%`);
+  });
+  c</html>
