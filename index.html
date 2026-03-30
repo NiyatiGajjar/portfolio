@@ -21,15 +21,16 @@
 html{scroll-behavior:smooth}
 body{font-family:var(--sans);background:var(--ink);color:#fff;overflow-x:hidden;line-height:1.7}
 
-/* ── LOADER ── */
-.loader{position:fixed;inset:0;background:var(--ink);z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2rem;transition:opacity 0.8s,visibility 0.8s}
-.loader.out{opacity:0;visibility:hidden}
-.loader-logo{font-family:var(--serif);font-size:3rem;font-style:italic;color:#fff;opacity:0;animation:loaderPop 0.8s 0.3s forwards}
-.loader-bar{width:200px;height:2px;background:rgba(255,255,255,0.1);border-radius:2px;overflow:hidden}
-.loader-fill{height:100%;background:linear-gradient(to right,var(--accent),var(--blue));border-radius:2px;width:0;animation:loaderFill 1.5s 0.5s ease-out forwards}
-.loader-text2{font-family:var(--mono);font-size:0.68rem;color:rgba(255,255,255,0.3);letter-spacing:0.15em;opacity:0;animation:loaderPop 0.5s 0.8s forwards}
-@keyframes loaderPop{to{opacity:1}}
-@keyframes loaderFill{to{width:100%}}
+
+
+/* ── CSS ANIMATED BACKGROUND (replaces Three.js) ── */
+.bg-blobs{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.bg-blob{position:absolute;border-radius:50%;filter:blur(100px);opacity:0.08;animation:blobDrift 12s ease-in-out infinite}
+.bg-blob:nth-child(1){width:600px;height:600px;background:var(--accent);top:-150px;right:-100px;animation-delay:0s;animation-duration:14s}
+.bg-blob:nth-child(2){width:500px;height:500px;background:var(--blue);bottom:-100px;left:-80px;animation-delay:4s;animation-duration:16s}
+.bg-blob:nth-child(3){width:350px;height:350px;background:var(--gold);top:40%;left:30%;animation-delay:8s;animation-duration:12s}
+.bg-blob:nth-child(4){width:280px;height:280px;background:var(--purple);bottom:20%;right:20%;animation-delay:2s;animation-duration:18s}
+@keyframes blobDrift{0%,100%{transform:translate(0,0) scale(1)}33%{transform:translate(30px,-20px) scale(1.05)}66%{transform:translate(-20px,15px) scale(0.97)}}
 
 /* ── CURSOR ── */
 .cur{width:10px;height:10px;background:var(--accent);border-radius:50%;position:fixed;pointer-events:none;z-index:9998;transition:transform 0.15s,background 0.2s;mix-blend-mode:screen}
@@ -54,9 +55,6 @@ nav.scrolled{background:rgba(10,15,26,0.92);backdrop-filter:blur(20px);border-bo
 .mob-menu a:hover{color:var(--accent)}
 .mob-close{position:absolute;top:1.5rem;right:5%;font-size:1.5rem;color:rgba(255,255,255,0.5);cursor:pointer;background:none;border:none;transition:color 0.2s}
 .mob-close:hover{color:#fff}
-
-/* ── THREE.JS CANVAS ── */
-#three-canvas{position:fixed;inset:0;z-index:0;pointer-events:none}
 
 /* ── HERO ── */
 .hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:120px 5% 5rem;position:relative;z-index:2}
@@ -286,19 +284,18 @@ footer p{font-size:0.68rem;color:rgba(255,255,255,0.15);font-family:var(--mono)}
 </head>
 <body>
 
-<!-- LOADER -->
-<div class="loader" id="loader">
-  <div class="loader-logo">Niyati Gajjar</div>
-  <div class="loader-bar"><div class="loader-fill"></div></div>
-  <div class="loader-text2">loading portfolio...</div>
+<!-- CURSOR -->
+
+<!-- ANIMATED BACKGROUND -->
+<div class="bg-blobs">
+  <div class="bg-blob"></div>
+  <div class="bg-blob"></div>
+  <div class="bg-blob"></div>
+  <div class="bg-blob"></div>
 </div>
 
-<!-- CURSOR -->
 <div class="cur" id="cur"></div>
 <div class="cur-r" id="curR"></div>
-
-<!-- THREE.JS CANVAS -->
-<canvas id="three-canvas"></canvas>
 
 <!-- MOBILE MENU -->
 <div class="mob-menu" id="mobMenu">
@@ -658,21 +655,8 @@ footer p{font-size:0.68rem;color:rgba(255,255,255,0.15);font-family:var(--mono)}
   <p>Philadelphia, PA · Temple University MS Engineering Management</p>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" defer></script>
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 // ── LOADER
-// Hide loader after 1.2s — does not wait for Three.js
-setTimeout(() => { document.getElementById('loader').classList.add('out'); }, 1200);
-
-// ── NAV
-window.addEventListener('scroll', () => {
-  document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 50);
-});
-
-// ── MOBILE MENU
-document.getElementById('ham').addEventListener('click', () => document.getElementById('mobMenu').classList.add('open'));
-document.getElementById('mobClose').addEventListener('click', () => document.getElementById('mobMenu').classList.remove('open'));
-function closeMob(){ document.getElementById('mobMenu').classList.remove('open'); }
 
 // ── CURSOR
 const cur = document.getElementById('cur'), curR = document.getElementById('curR');
@@ -690,99 +674,6 @@ document.querySelectorAll('a,button,.pcard,.flip-wrap,.can-card,.trait,.accard')
   el.addEventListener('mouseenter',()=>{cur.style.transform='scale(2.5)';curR.style.borderColor='rgba(42,127,196,0.6)';curR.style.transform='scale(1.5)'});
   el.addEventListener('mouseleave',()=>{cur.style.transform='scale(1)';curR.style.borderColor='rgba(232,101,42,0.5)';curR.style.transform='scale(1)'});
 });
-
-// ── THREE.JS — FLOATING PARTICLES
-const canvas = document.getElementById('three-canvas');
-let renderer;
-try { renderer = new THREE.WebGLRenderer({canvas, alpha:true, antialias:true}); } catch(e) { console.warn('WebGL not available'); }
-if(!renderer) { canvas.style.display='none'; }
-if(renderer) {
-renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
-renderer.setSize(window.innerWidth,window.innerHeight);
-
-const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera(60, window.innerWidth/window.innerHeight, 0.1, 100);
-camera.position.z = 5;
-
-// Floating geometry objects
-const objects = [];
-const geometries = [
-  new THREE.IcosahedronGeometry(0.3,0),
-  new THREE.OctahedronGeometry(0.25,0),
-  new THREE.TetrahedronGeometry(0.28,0),
-  new THREE.BoxGeometry(0.3,0.3,0.3),
-  new THREE.SphereGeometry(0.18,8,8),
-];
-const colors = [0xe8652a, 0x2a7fc4, 0xd4a843, 0x3aaa6e, 0x9b6fe0, 0xe85a8a];
-
-for(let i=0;i<30;i++){
-  const geo = geometries[Math.floor(Math.random()*geometries.length)];
-  const mat = new THREE.MeshBasicMaterial({
-    color: colors[Math.floor(Math.random()*colors.length)],
-    wireframe: true,
-    transparent: true,
-    opacity: Math.random()*0.15+0.05
-  });
-  const mesh = new THREE.Mesh(geo,mat);
-  mesh.position.set(
-    (Math.random()-0.5)*20,
-    (Math.random()-0.5)*20,
-    (Math.random()-0.5)*10 - 3
-  );
-  mesh.rotation.set(Math.random()*Math.PI,Math.random()*Math.PI,Math.random()*Math.PI);
-  const speed = {
-    x: (Math.random()-0.5)*0.003,
-    y: (Math.random()-0.5)*0.003,
-    z: (Math.random()-0.5)*0.001,
-    rx: (Math.random()-0.5)*0.008,
-    ry: (Math.random()-0.5)*0.008,
-  };
-  objects.push({mesh, speed});
-  scene.add(mesh);
-}
-
-// Particle field
-const partGeo = new THREE.BufferGeometry();
-const partCount = 200;
-const positions = new Float32Array(partCount*3);
-for(let i=0;i<partCount*3;i++) positions[i]=(Math.random()-0.5)*30;
-partGeo.setAttribute('position',new THREE.BufferAttribute(positions,3));
-const partMat = new THREE.PointsMaterial({color:0xffffff,size:0.03,transparent:true,opacity:0.3});
-scene.add(new THREE.Points(partGeo,partMat));
-
-// Mouse parallax
-let mouseX=0, mouseY=0;
-document.addEventListener('mousemove',e=>{
-  mouseX=(e.clientX/window.innerWidth-0.5)*0.5;
-  mouseY=(e.clientY/window.innerHeight-0.5)*0.5;
-});
-
-// Scroll parallax
-let scrollY2=0;
-window.addEventListener('scroll',()=>{ scrollY2=window.scrollY; });
-
-function animate(){
-  requestAnimationFrame(animate);
-  const t=Date.now()*0.001;
-  objects.forEach(o=>{
-    o.mesh.rotation.x+=o.speed.rx;
-    o.mesh.rotation.y+=o.speed.ry;
-    o.mesh.position.y+=Math.sin(t+o.mesh.position.x)*0.001;
-  });
-  camera.position.x+=(mouseX-camera.position.x)*0.02;
-  camera.position.y+=(-mouseY-camera.position.y)*0.02;
-  camera.position.y-=scrollY2*0.0005;
-  renderer.render(scene,camera);
-}
-animate();
-
-window.addEventListener('resize',()=>{
-  if(!renderer) return;
-  camera.aspect=window.innerWidth/window.innerHeight;
-  camera.updateProjectionMatrix();
-  renderer.setSize(window.innerWidth,window.innerHeight);
-});
-} // end if(renderer)
 
 // ── SCROLL REVEAL
 const obs = new IntersectionObserver(entries=>{
