@@ -4,16 +4,18 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Niyati Gajjar — Portfolio</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap&display=swap" rel="stylesheet">
 <style>
 :root{
   --ink:#0a0f1a;--paper:#faf8f2;--cream:#f0ece0;
   --accent:#e8652a;--blue:#2a7fc4;--gold:#d4a843;
   --green:#3aaa6e;--purple:#9b6fe0;--pink:#e85a8a;
   --muted:#7a7060;--light:#b8a88a;
-  --serif:'Playfair Display',serif;
-  --sans:'Plus Jakarta Sans',sans-serif;
-  --mono:'JetBrains Mono',monospace;
+  --serif:'Playfair Display',Georgia,serif;
+  --sans:'Plus Jakarta Sans',system-ui,-apple-system,sans-serif;
+  --mono:'JetBrains Mono',Consolas,monospace;
   --glow-accent:rgba(232,101,42,0.4);
   --glow-blue:rgba(42,127,196,0.4);
 }
@@ -58,18 +60,18 @@ nav.scrolled{background:rgba(10,15,26,0.92);backdrop-filter:blur(20px);border-bo
 
 /* ── HERO ── */
 .hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:120px 5% 5rem;position:relative;z-index:2}
-.hero-badge{display:inline-flex;align-items:center;gap:0.6rem;font-family:var(--mono);font-size:0.68rem;color:var(--accent);letter-spacing:0.12em;margin-bottom:1.5rem;opacity:0;animation:heroUp 0.8s 2s forwards}
+.hero-badge{display:inline-flex;align-items:center;gap:0.6rem;font-family:var(--mono);font-size:0.68rem;color:var(--accent);letter-spacing:0.12em;margin-bottom:1.5rem;}
 .hero-badge::before{content:'';width:28px;height:1px;background:var(--accent)}
 .pulse-dot{width:6px;height:6px;background:var(--green);border-radius:50%;animation:pulse 2s ease-in-out infinite}
 @keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(58,170,110,0.6)}50%{box-shadow:0 0 0 6px rgba(58,170,110,0)}}
-.hero-name{font-family:var(--serif);font-size:clamp(3.5rem,9vw,8rem);line-height:1.0;margin-bottom:0.5rem;opacity:0;animation:heroUp 0.8s 2.15s forwards}
+.hero-name{font-family:var(--serif);font-size:clamp(3.5rem,9vw,8rem);line-height:1.0;margin-bottom:0.5rem;}
 .hero-name .line-accent{display:block;font-style:italic;color:transparent;-webkit-text-stroke:2px var(--accent);letter-spacing:-0.02em}
 .hero-name .line-solid{display:block;color:#fff}
-.hero-role{font-family:var(--serif);font-size:clamp(1.2rem,3vw,2rem);color:rgba(255,255,255,0.45);font-style:italic;margin-bottom:1.8rem;opacity:0;animation:heroUp 0.8s 2.3s forwards}
+.hero-role{font-family:var(--serif);font-size:clamp(1.2rem,3vw,2rem);color:rgba(255,255,255,0.45);font-style:italic;margin-bottom:1.8rem;}
 .hero-role span{color:var(--blue)}
-.hero-desc{font-size:1rem;color:rgba(255,255,255,0.55);line-height:1.95;max-width:600px;margin-bottom:2.5rem;opacity:0;animation:heroUp 0.8s 2.45s forwards}
+.hero-desc{font-size:1rem;color:rgba(255,255,255,0.55);line-height:1.95;max-width:600px;margin-bottom:2.5rem;}
 .hero-desc strong{color:#fff}
-.hero-btns{display:flex;flex-wrap:wrap;gap:1rem;margin-bottom:4rem;opacity:0;animation:heroUp 0.8s 2.6s forwards}
+.hero-btns{display:flex;flex-wrap:wrap;gap:1rem;margin-bottom:4rem;}
 .btn{display:inline-flex;align-items:center;gap:0.5rem;padding:0.9rem 2.2rem;font-size:0.78rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;text-decoration:none;border-radius:6px;transition:all 0.3s;font-family:var(--sans);border:none;cursor:pointer;position:relative;overflow:hidden}
 .btn::before{content:'';position:absolute;inset:0;background:rgba(255,255,255,0.1);transform:translateX(-100%);transition:transform 0.3s}
 .btn:hover::before{transform:translateX(0)}
@@ -77,12 +79,12 @@ nav.scrolled{background:rgba(10,15,26,0.92);backdrop-filter:blur(20px);border-bo
 .btn-glow:hover{transform:translateY(-3px);box-shadow:0 16px 40px var(--glow-accent)}
 .btn-glass{background:rgba(255,255,255,0.06);color:#fff;border:1px solid rgba(255,255,255,0.15);backdrop-filter:blur(10px)}
 .btn-glass:hover{background:rgba(255,255,255,0.12);transform:translateY(-3px);border-color:rgba(255,255,255,0.3)}
-.hero-stats{display:flex;flex-wrap:wrap;gap:0;opacity:0;animation:heroUp 0.8s 2.75s forwards;border-top:1px solid rgba(255,255,255,0.08);padding-top:2rem}
+.hero-stats{display:flex;flex-wrap:wrap;gap:0;border-top:1px solid rgba(255,255,255,0.08);padding-top:2rem;}
 .hs{padding-right:2.5rem;border-right:1px solid rgba(255,255,255,0.08);margin-right:2.5rem}
 .hs:last-child{border-right:none;margin-right:0}
 .hs-num{font-family:var(--serif);font-size:2.5rem;color:var(--accent);line-height:1}
 .hs-lbl{font-size:0.65rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.35);margin-top:0.2rem}
-@keyframes heroUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+to{opacity:1;transform:translateY(0)}}
 
 /* ── SECTIONS ── */
 section{position:relative;z-index:2}
@@ -204,8 +206,8 @@ pre{font-family:var(--mono);font-size:0.78rem;line-height:1.85;color:#8899aa}
 .exp-sec{background:rgba(255,255,255,0.02)}
 .tl{position:relative;padding-left:2rem}
 .tl::before{content:'';position:absolute;left:0;top:8px;bottom:0;width:2px;background:linear-gradient(to bottom,var(--accent),var(--blue),var(--gold),var(--green))}
-.tli{position:relative;margin-bottom:3.5rem;opacity:0;transform:translateX(-24px);transition:all 0.6s}
-.tli.vis{opacity:1;transform:translateX(0)}
+.tli{position:relative;margin-bottom:3.5rem;}
+
 .tldot{position:absolute;left:-2.4rem;top:4px;width:14px;height:14px;border-radius:50%;background:var(--accent);border:3px solid var(--ink);transition:transform 0.3s,box-shadow 0.3s}
 .tli:hover .tldot{transform:scale(1.5);box-shadow:0 0 16px var(--glow-accent)}
 .tldot.b{background:var(--blue)}.tldot.g{background:var(--gold)}.tldot.gr{background:var(--green)}
@@ -252,13 +254,7 @@ pre{font-family:var(--mono);font-size:0.78rem;line-height:1.85;color:#8899aa}
 footer{background:#050810;padding:1.5rem 5%;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem;position:relative;z-index:2}
 footer p{font-size:0.68rem;color:rgba(255,255,255,0.15);font-family:var(--mono)}
 
-/* ── REVEAL ANIMATIONS ── */
-.reveal{opacity:0;transform:translateY(30px);transition:all 0.7s cubic-bezier(0.25,0.46,0.45,0.94)}
-.reveal.vis{opacity:1;transform:translateY(0)}
-.reveal-l{opacity:0;transform:translateX(-30px);transition:all 0.7s cubic-bezier(0.25,0.46,0.45,0.94)}
-.reveal-l.vis{opacity:1;transform:translateX(0)}
-.reveal-r{opacity:0;transform:translateX(30px);transition:all 0.7s cubic-bezier(0.25,0.46,0.45,0.94)}
-.reveal-r.vis{opacity:1;transform:translateX(0)}
+
 
 /* ── RESPONSIVE ── */
 @media(max-width:900px){
@@ -341,10 +337,10 @@ footer p{font-size:0.68rem;color:rgba(255,255,255,0.15);font-family:var(--mono)}
     <a href="#connect" class="btn btn-glass">Let's Talk</a>
   </div>
   <div class="hero-stats">
-    <div class="hs"><div class="hs-num" data-target="6">0+</div><div class="hs-lbl">Industry Projects</div></div>
-    <div class="hs"><div class="hs-num" data-target="2">0+</div><div class="hs-lbl">Years Experience</div></div>
-    <div class="hs"><div class="hs-num" data-target="40">0+</div><div class="hs-lbl">Weekly IT Requests</div></div>
-    <div class="hs"><div class="hs-num" data-target="4">0</div><div class="hs-lbl">Academic Projects</div></div>
+    <div class="hs"><div class="hs-num" data-target="6">6</div><div class="hs-lbl">Industry Projects</div></div>
+    <div class="hs"><div class="hs-num" data-target="2">2</div><div class="hs-lbl">Years Experience</div></div>
+    <div class="hs"><div class="hs-num" data-target="40">40+</div><div class="hs-lbl">Weekly IT Requests</div></div>
+    <div class="hs"><div class="hs-num" data-target="4">4</div><div class="hs-lbl">Academic Projects</div></div>
   </div>
 </section>
 
@@ -413,7 +409,9 @@ footer p{font-size:0.68rem;color:rgba(255,255,255,0.15);font-family:var(--mono)}
 <!-- ACADEMIC -->
 <section id="academic" class="ac-sec">
   <div class="sec-wrap">
-    <div class="reveal"><div class="sec-ey">MS Engineering Management · Temple University</div><h2 class="sec-t">Academic work that <em>proves the thinking</em></h2><p class="sec-d">Four graduate projects — design thinking, user research, AI literacy, project management.</p></div>
+    <div class="reveal"><div class="sec-ey">MS Engineering Management · Temple University · GPA 3.65</div>
+      <h2 class="sec-t">Academic work that <em>proves the thinking</em></h2>
+      <p class="sec-d">4 selected projects from 11 completed graduate courses. Full coursework below.</p></div>
     <div class="ac-grid">
       <div class="accard reveal"><div class="ac-top-bar a"></div><div class="ac-pad"><div class="ac-course">Design Thinking · 2025</div><div class="ac-title">"Locals" — Homemade Food Marketplace App</div><p class="ac-desc">Two-sided marketplace connecting home cooks with students needing affordable, culturally familiar food. Inspired by personal experience as an international student. Full design thinking cycle.</p><div class="ac-hls"><div class="ahl">Stakeholder interviews with students and home cooks</div><div class="ahl">Uber Eats + Amazon model applied to home food problem</div><div class="ahl">Designed cook profiles, reviews, and order dashboard</div></div></div></div>
       <div class="accard reveal"><div class="ac-top-bar b"></div><div class="ac-pad"><div class="ac-course">AI for Managers · 2025</div><div class="ac-title">SoundShield — Smart Jewelry for Autism</div><p class="ac-desc">IoT wearable (earrings, bracelet, necklace) with Bluetooth sensing detecting autism sound triggers from a distance, creating a protective buffer. Problem from faculty advisor's active research.</p><div class="ac-hls"><div class="ahl">Real problem from faculty autism research</div><div class="ahl">AI tools used for research refinement and design visuals</div><div class="ahl">Research paper + faculty presentation delivered</div></div></div></div>
@@ -626,6 +624,37 @@ footer p{font-size:0.68rem;color:rgba(255,255,255,0.15);font-family:var(--mono)}
         </div>
       </div>
     </div>
+
+    <!-- COURSEWORK -->
+    <div class="reveal" style="margin-top:2.5rem">
+      <div class="sec-ey" style="margin-bottom:1rem">Full Coursework — 11 Courses Completed · 1 In Progress</div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:0.7rem;">
+        <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);border-radius:8px;padding:0.9rem 1.1rem;">
+          <div style="font-size:0.65rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent);margin-bottom:0.3rem">Fall 2024</div>
+          <div style="font-size:0.82rem;color:rgba(255,255,255,0.75);font-weight:600;margin-bottom:0.15rem">Design Thinking <span style="color:var(--accent);font-size:0.7rem">A-</span></div>
+          <div style="font-size:0.82rem;color:rgba(255,255,255,0.75);font-weight:600;margin-bottom:0.15rem">Intrapreneurship &amp; NPD Process <span style="color:var(--accent);font-size:0.7rem">A</span></div>
+          <div style="font-size:0.82rem;color:rgba(255,255,255,0.75);font-weight:600;margin-bottom:0.15rem">Mgmt Principles for Innovators <span style="color:rgba(255,255,255,0.4);font-size:0.7rem">B</span></div>
+          <div style="font-size:0.82rem;color:rgba(255,255,255,0.75);font-weight:600">Project Management Introduction <span style="color:var(--accent);font-size:0.7rem">A</span></div>
+        </div>
+        <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);border-radius:8px;padding:0.9rem 1.1rem;">
+          <div style="font-size:0.65rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--blue);margin-bottom:0.3rem">Spring 2025</div>
+          <div style="font-size:0.82rem;color:rgba(255,255,255,0.75);font-weight:600;margin-bottom:0.15rem">Financial Mgmt for Technology <span style="color:var(--accent);font-size:0.7rem">A</span></div>
+          <div style="font-size:0.82rem;color:rgba(255,255,255,0.75);font-weight:600;margin-bottom:0.15rem">Lean Six Sigma &amp; Scientific Improvement <span style="color:var(--accent);font-size:0.7rem">A</span></div>
+          <div style="font-size:0.82rem;color:rgba(255,255,255,0.75);font-weight:600;margin-bottom:0.15rem">AI for Managers (Special Topics) <span style="color:var(--accent);font-size:0.7rem">A</span></div>
+          <div style="font-size:0.82rem;color:rgba(255,255,255,0.75);font-weight:600">Lean Entrepreneurship &amp; Innovation <span style="color:rgba(255,255,255,0.4);font-size:0.7rem">B+</span></div>
+        </div>
+        <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);border-radius:8px;padding:0.9rem 1.1rem;">
+          <div style="font-size:0.65rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);margin-bottom:0.3rem">Fall 2025</div>
+          <div style="font-size:0.82rem;color:rgba(255,255,255,0.75);font-weight:600;margin-bottom:0.15rem">Disruptive Innovation Management <span style="color:var(--accent);font-size:0.7rem">A</span></div>
+          <div style="font-size:0.82rem;color:rgba(255,255,255,0.75);font-weight:600;margin-bottom:0.15rem">Information Technology Management <span style="color:var(--accent);font-size:0.7rem">A-</span></div>
+          <div style="font-size:0.82rem;color:rgba(255,255,255,0.75);font-weight:600;margin-bottom:0.15rem">Creativity Unleashed <span style="color:rgba(255,255,255,0.4);font-size:0.7rem">B</span></div>
+          <div style="font-size:0.82rem;color:rgba(255,255,255,0.6);font-weight:600;font-style:italic">Capstone <span style="color:var(--green);font-size:0.7rem">In Progress</span></div>
+        </div>
+      </div>
+      <div style="margin-top:1rem;padding:0.8rem 1.2rem;background:rgba(232,101,42,0.06);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;">
+        <span style="font-size:0.82rem;color:rgba(255,255,255,0.55)">The 4 projects above represent selected highlights. Every course involved applied projects, case studies, and real-world deliverables — full details available on request.</span>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -675,14 +704,7 @@ document.querySelectorAll('a,button,.pcard,.flip-wrap,.can-card,.trait,.accard')
   el.addEventListener('mouseleave',()=>{cur.style.transform='scale(1)';curR.style.borderColor='rgba(232,101,42,0.5)';curR.style.transform='scale(1)'});
 });
 
-// ── SCROLL REVEAL
-const obs = new IntersectionObserver(entries=>{
-  entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('vis'); });
 },{threshold:0.1,rootMargin:'0px 0px -40px 0px'});
-document.querySelectorAll('.reveal,.reveal-l,.reveal-r,.tli').forEach((el,i)=>{
-  el.style.transitionDelay=(i%5)*0.08+'s';
-  obs.observe(el);
-});
 
 // ── COUNTER
 const counterObs = new IntersectionObserver(entries=>{
