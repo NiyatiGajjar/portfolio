@@ -191,15 +191,7 @@ section{position:relative;z-index:2}
 .pm-n{font-family:var(--serif);font-size:1.3rem;color:#fff;line-height:1}
 .pm-l{font-size:0.6rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,255,255,0.3);margin-top:0.15rem}
 
-/* ── CODE ── */
-.code-sec{background:rgba(0,0,0,0.3)}
-.cw{background:#080f1a;border-radius:16px;overflow:hidden;box-shadow:0 40px 80px rgba(0,0,0,0.6),0 0 0 1px rgba(255,255,255,0.05)}
-.ctbar{display:flex;align-items:center;gap:0.5rem;padding:0.9rem 1.4rem;background:#0d1825;border-bottom:1px solid rgba(255,255,255,0.05)}
-.dot{width:12px;height:12px;border-radius:50%}
-.dot.r{background:#ff5f57}.dot.y{background:#febc2e}.dot.g{background:#28c840}
-.cfn{font-family:var(--mono);font-size:0.7rem;color:rgba(255,255,255,0.25);margin-left:0.8rem}
-.cbk{padding:2rem;overflow-x:auto}
-pre{font-family:var(--mono);font-size:0.78rem;line-height:1.85;color:#8899aa}
+
 .cm{color:#3d5060}.ck{color:#c792ea}.cs{color:#c3e88d}.cf{color:#82aaff}.cn{color:#f78c6c}.cc{color:#ffcb6b}.cv{color:#eeffff}
 
 /* ── TIMELINE ── */
@@ -337,10 +329,10 @@ footer p{font-size:0.68rem;color:rgba(255,255,255,0.15);font-family:var(--mono)}
     <a href="#connect" class="btn btn-glass">Let's Talk</a>
   </div>
   <div class="hero-stats">
-    <div class="hs"><div class="hs-num" data-target="6">6</div><div class="hs-lbl">Industry Projects</div></div>
-    <div class="hs"><div class="hs-num" data-target="2">2</div><div class="hs-lbl">Years Experience</div></div>
-    <div class="hs"><div class="hs-num" data-target="40">40+</div><div class="hs-lbl">Weekly IT Requests</div></div>
-    <div class="hs"><div class="hs-num" data-target="4">4</div><div class="hs-lbl">Academic Projects</div></div>
+    <div class="hs"><div class="hs-num" data-target="6">0+</div><div class="hs-lbl">Industry Projects</div></div>
+    <div class="hs"><div class="hs-num" data-target="2">0+</div><div class="hs-lbl">Years Experience</div></div>
+    <div class="hs"><div class="hs-num" data-target="40">0+</div><div class="hs-lbl">Weekly IT Requests</div></div>
+    <div class="hs"><div class="hs-num" data-target="4">0</div><div class="hs-lbl">Academic Projects</div></div>
   </div>
 </section>
 
@@ -417,66 +409,6 @@ footer p{font-size:0.68rem;color:rgba(255,255,255,0.15);font-family:var(--mono)}
       <div class="accard reveal"><div class="ac-top-bar b"></div><div class="ac-pad"><div class="ac-course">AI for Managers · 2025</div><div class="ac-title">SoundShield — Smart Jewelry for Autism</div><p class="ac-desc">IoT wearable (earrings, bracelet, necklace) with Bluetooth sensing detecting autism sound triggers from a distance, creating a protective buffer. Problem from faculty advisor's active research.</p><div class="ac-hls"><div class="ahl">Real problem from faculty autism research</div><div class="ahl">AI tools used for research refinement and design visuals</div><div class="ahl">Research paper + faculty presentation delivered</div></div></div></div>
       <div class="accard reveal"><div class="ac-top-bar g"></div><div class="ac-pad"><div class="ac-course">Creativity Unleashed · 2025</div><div class="ac-title">Innovation Culture Research & Analysis</div><p class="ac-desc">3 in-depth stakeholder interviews + 16-respondent survey spanning intern to director roles. Key finding: 81% say ideas are discussed but rarely implemented.</p><div class="ac-hls"><div class="ahl">Video, phone & online interviews across 3 industries</div><div class="ahl">16 respondents — intern to director level</div><div class="ahl">Original interview guide and survey methodology</div></div></div></div>
       <div class="accard reveal"><div class="ac-top-bar gr"></div><div class="ac-pad"><div class="ac-course">Intro to Project Management · 2024</div><div class="ac-title">IoT Project Charter & Gantt Planning</div><p class="ac-desc">Applied PMBOK to the real QuantumBot project — project charter, stakeholder register, risk register, and Microsoft Project Gantt chart. Coordinated distributed remote + in-person team.</p><div class="ac-hls"><div class="ahl">Charter based on real 7-month industry project</div><div class="ahl">Full Gantt chart in Microsoft Project</div><div class="ahl">Managed remote + in-person distributed team</div></div></div></div>
-    </div>
-  </div>
-</section>
-
-<!-- CODE -->
-<section class="code-sec" id="code">
-  <div class="sec-wrap">
-    <div class="reveal" style="display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:1rem;margin-bottom:2rem">
-      <div><div class="sec-ey">Technical Sample</div><h2 class="sec-t" style="color:#fff">Real Python. <em>Real logic.</em></h2></div>
-      <div style="font-size:0.72rem;color:rgba(255,255,255,0.2);font-family:var(--mono)">oil_well_pipeline.py</div>
-    </div>
-    <div class="cw reveal">
-      <div class="ctbar"><div class="dot r"></div><div class="dot y"></div><div class="dot g"></div><span class="cfn">oil_well_pipeline.py — IoT Serial Data Ingestion & Motor Alert System</span></div>
-      <div class="cbk">
-<pre><span class="cm"># Oil Well Depth Monitoring — Niyati Gajjar · QuantumBot Pvt. Ltd.
-# Serial data from STM32 → noise filter → Django dashboard → motor trigger</span>
-
-<span class="ck">import</span> <span class="cv">serial</span>, <span class="cv">requests</span>, <span class="cv">json</span>, <span class="cv">time</span>, <span class="cv">logging</span>
-<span class="ck">from</span> <span class="cv">collections</span> <span class="ck">import</span> <span class="cv">deque</span>
-<span class="ck">from</span> <span class="cv">datetime</span> <span class="ck">import</span> <span class="cv">datetime</span>
-
-<span class="cc">SERIAL_PORT</span>     = <span class="cs">"/dev/ttyUSB0"</span>
-<span class="cc">BAUD_RATE</span>       = <span class="cn">115200</span>
-<span class="cc">SAMPLE_INTERVAL</span> = <span class="cn">0.05</span>    <span class="cm"># 50ms — millisecond sampling</span>
-<span class="cc">DEPTH_THRESHOLD</span> = <span class="cn">15.0</span>   <span class="cm"># meters — motor triggers below this</span>
-<span class="cc">DJANGO_API</span>      = <span class="cs">"http://dashboard.local/api/well/readings/"</span>
-
-<span class="cv">buffer</span> = <span class="cf">deque</span>(maxlen=<span class="cn">20</span>)  <span class="cm"># rolling average for noise filtering</span>
-
-<span class="ck">def</span> <span class="cf">filter_noise</span>(<span class="cv">raw</span>):
-    <span class="cv">buffer</span>.<span class="cf">append</span>(<span class="cv">raw</span>)
-    <span class="ck">return</span> <span class="cf">sum</span>(<span class="cv">buffer</span>) / <span class="cf">len</span>(<span class="cv">buffer</span>)
-
-<span class="ck">def</span> <span class="cf">parse_frame</span>(<span class="cv">raw_bytes</span>):
-    <span class="ck">try</span>:
-        <span class="cv">p</span> = <span class="cv">raw_bytes</span>.<span class="cf">decode</span>(<span class="cs">"utf-8"</span>).<span class="cf">strip</span>().<span class="cf">split</span>(<span class="cs">"|"</span>)
-        <span class="ck">if</span> <span class="cv">p</span>[<span class="cn">0</span>] != <span class="cs">"START"</span>: <span class="ck">return None</span>
-        <span class="ck">return</span> {<span class="cs">"depth"</span>: <span class="cf">float</span>(<span class="cv">p</span>[<span class="cn">1</span>]), <span class="cs">"temp"</span>: <span class="cf">float</span>(<span class="cv">p</span>[<span class="cn">2</span>]), <span class="cs">"pressure"</span>: <span class="cf">float</span>(<span class="cv">p</span>[<span class="cn">3</span>])}
-    <span class="ck">except</span>: <span class="ck">return None</span>
-
-<span class="ck">def</span> <span class="cf">send_to_dashboard</span>(<span class="cv">depth</span>, <span class="cv">temp</span>, <span class="cv">pressure</span>, <span class="cv">alert</span>):
-    <span class="ck">try</span>:
-        <span class="cv">requests</span>.<span class="cf">post</span>(<span class="cc">DJANGO_API</span>, json={
-            <span class="cs">"depth_m"</span>: <span class="cf">round</span>(<span class="cv">depth</span>, <span class="cn">3</span>), <span class="cs">"temp"</span>: <span class="cv">temp</span>,
-            <span class="cs">"alert"</span>: <span class="cv">alert</span>, <span class="cs">"ts"</span>: <span class="cv">datetime</span>.<span class="cf">utcnow</span>().<span class="cf">isoformat</span>()
-        }, timeout=<span class="cn">3</span>)
-        <span class="ck">if</span> <span class="cv">alert</span>: <span class="cv">logging</span>.<span class="cf">warning</span>(<span class="cs">f"⚠ Depth {depth:.2f}m — Motor triggered"</span>)
-    <span class="ck">except Exception as</span> <span class="cv">e</span>: <span class="cv">logging</span>.<span class="cf">error</span>(<span class="cs">f"API: {e}"</span>)
-
-<span class="ck">def</span> <span class="cf">main</span>():
-    <span class="ck">with</span> <span class="cv">serial</span>.<span class="cc">Serial</span>(<span class="cc">SERIAL_PORT</span>, <span class="cc">BAUD_RATE</span>, timeout=<span class="cn">1</span>) <span class="ck">as</span> <span class="cv">ser</span>:
-        <span class="ck">while True</span>:
-            <span class="cv">data</span> = <span class="cf">parse_frame</span>(<span class="cv">ser</span>.<span class="cf">readline</span>())
-            <span class="ck">if not</span> <span class="cv">data</span>: <span class="ck">continue</span>
-            <span class="cv">d</span> = <span class="cf">filter_noise</span>(<span class="cv">data</span>[<span class="cs">"depth"</span>])
-            <span class="cf">send_to_dashboard</span>(<span class="cv">d</span>, <span class="cv">data</span>[<span class="cs">"temp"</span>], <span class="cv">data</span>[<span class="cs">"pressure"</span>], <span class="cv">d</span> &lt; <span class="cc">DEPTH_THRESHOLD</span>)
-            <span class="cv">time</span>.<span class="cf">sleep</span>(<span class="cc">SAMPLE_INTERVAL</span>)
-
-<span class="ck">if</span> <span class="cv">__name__</span> == <span class="cs">"__main__"</span>: <span class="cf">main</span>()</pre>
-      </div>
     </div>
   </div>
 </section>
@@ -631,23 +563,23 @@ footer p{font-size:0.68rem;color:rgba(255,255,255,0.15);font-family:var(--mono)}
       <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:0.7rem;">
         <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);border-radius:8px;padding:0.9rem 1.1rem;">
           <div style="font-size:0.65rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent);margin-bottom:0.3rem">Fall 2024</div>
-          <div style="font-size:0.82rem;color:rgba(255,255,255,0.75);font-weight:600;margin-bottom:0.15rem">Design Thinking <span style="color:var(--accent);font-size:0.7rem">A-</span></div>
-          <div style="font-size:0.82rem;color:rgba(255,255,255,0.75);font-weight:600;margin-bottom:0.15rem">Intrapreneurship &amp; NPD Process <span style="color:var(--accent);font-size:0.7rem">A</span></div>
-          <div style="font-size:0.82rem;color:rgba(255,255,255,0.75);font-weight:600;margin-bottom:0.15rem">Mgmt Principles for Innovators <span style="color:rgba(255,255,255,0.4);font-size:0.7rem">B</span></div>
-          <div style="font-size:0.82rem;color:rgba(255,255,255,0.75);font-weight:600">Project Management Introduction <span style="color:var(--accent);font-size:0.7rem">A</span></div>
+          <div style="font-size:0.82rem;color:rgba(255,255,255,0.75);font-weight:600;margin-bottom:0.15rem">Design Thinking</div>
+          <div style="font-size:0.82rem;color:rgba(255,255,255,0.75);font-weight:600;margin-bottom:0.15rem">Intrapreneurship &amp; NPD Process</div>
+          <div style="font-size:0.82rem;color:rgba(255,255,255,0.75);font-weight:600;margin-bottom:0.15rem">Mgmt Principles for Innovators</div>
+          <div style="font-size:0.82rem;color:rgba(255,255,255,0.75);font-weight:600">Project Management Introduction</div>
         </div>
         <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);border-radius:8px;padding:0.9rem 1.1rem;">
           <div style="font-size:0.65rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--blue);margin-bottom:0.3rem">Spring 2025</div>
-          <div style="font-size:0.82rem;color:rgba(255,255,255,0.75);font-weight:600;margin-bottom:0.15rem">Financial Mgmt for Technology <span style="color:var(--accent);font-size:0.7rem">A</span></div>
-          <div style="font-size:0.82rem;color:rgba(255,255,255,0.75);font-weight:600;margin-bottom:0.15rem">Lean Six Sigma &amp; Scientific Improvement <span style="color:var(--accent);font-size:0.7rem">A</span></div>
-          <div style="font-size:0.82rem;color:rgba(255,255,255,0.75);font-weight:600;margin-bottom:0.15rem">AI for Managers (Special Topics) <span style="color:var(--accent);font-size:0.7rem">A</span></div>
-          <div style="font-size:0.82rem;color:rgba(255,255,255,0.75);font-weight:600">Lean Entrepreneurship &amp; Innovation <span style="color:rgba(255,255,255,0.4);font-size:0.7rem">B+</span></div>
+          <div style="font-size:0.82rem;color:rgba(255,255,255,0.75);font-weight:600;margin-bottom:0.15rem">Financial Mgmt for Technology</div>
+          <div style="font-size:0.82rem;color:rgba(255,255,255,0.75);font-weight:600;margin-bottom:0.15rem">Lean Six Sigma &amp; Scientific Improvement</div>
+          <div style="font-size:0.82rem;color:rgba(255,255,255,0.75);font-weight:600;margin-bottom:0.15rem">AI for Managers (Special Topics)</div>
+          <div style="font-size:0.82rem;color:rgba(255,255,255,0.75);font-weight:600">Lean Entrepreneurship &amp; Innovation</div>
         </div>
         <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);border-radius:8px;padding:0.9rem 1.1rem;">
           <div style="font-size:0.65rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);margin-bottom:0.3rem">Fall 2025</div>
-          <div style="font-size:0.82rem;color:rgba(255,255,255,0.75);font-weight:600;margin-bottom:0.15rem">Disruptive Innovation Management <span style="color:var(--accent);font-size:0.7rem">A</span></div>
-          <div style="font-size:0.82rem;color:rgba(255,255,255,0.75);font-weight:600;margin-bottom:0.15rem">Information Technology Management <span style="color:var(--accent);font-size:0.7rem">A-</span></div>
-          <div style="font-size:0.82rem;color:rgba(255,255,255,0.75);font-weight:600;margin-bottom:0.15rem">Creativity Unleashed <span style="color:rgba(255,255,255,0.4);font-size:0.7rem">B</span></div>
+          <div style="font-size:0.82rem;color:rgba(255,255,255,0.75);font-weight:600;margin-bottom:0.15rem">Disruptive Innovation Management</div>
+          <div style="font-size:0.82rem;color:rgba(255,255,255,0.75);font-weight:600;margin-bottom:0.15rem">Information Technology Management</div>
+          <div style="font-size:0.82rem;color:rgba(255,255,255,0.75);font-weight:600;margin-bottom:0.15rem">Creativity Unleashed</div>
           <div style="font-size:0.82rem;color:rgba(255,255,255,0.6);font-weight:600;font-style:italic">Capstone <span style="color:var(--green);font-size:0.7rem">In Progress</span></div>
         </div>
       </div>
@@ -666,11 +598,11 @@ footer p{font-size:0.68rem;color:rgba(255,255,255,0.15);font-family:var(--mono)}
       <h2 class="connect-title">I'd love to<br><em>connect with you</em></h2>
       <p class="connect-desc">Whether you're a recruiter, a potential teammate, or just someone who wants to talk about IoT, travel, or good documentaries — my inbox is always open.</p>
       <div class="connect-btns">
-        <a href="/cdn-cgi/l/email-protection#7b0f0e0e4a4948484b3b0f1e160b171e551e1f0e" class="btn btn-glow">✉ Send Me an Email</a>
+        tuu12330@temple.edu
         <a href="https://www.linkedin.com/in/niyati-gajjar-/" target="_blank" class="btn btn-glass">Connect on LinkedIn →</a>
       </div>
       <div class="ci-row">
-        <div class="ci"><div class="ci-l">Email</div><div class="ci-v"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="6c1819195d5e5f5f5c2c1809011c000942090819">[email&#160;protected]</a></div></div>
+        <div class="ci"><div class="ci-l">Email</div><div class="ci-v">tuu12330@temple.edu</div></div>
         <div class="ci"><div class="ci-l">Location</div><div class="ci-v">Philadelphia, PA</div></div>
         <div class="ci"><div class="ci-l">Work Auth</div><div class="ci-v">OPT · STEM OPT Eligible</div></div>
         <div class="ci"><div class="ci-l">Open To</div><div class="ci-v">PM · Coordinator · TPM · Dev</div></div>
@@ -684,8 +616,27 @@ footer p{font-size:0.68rem;color:rgba(255,255,255,0.15);font-family:var(--mono)}
   <p>Philadelphia, PA · Temple University MS Engineering Management</p>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-// ── LOADER
+<script>
+
+// ── MOBILE MENU
+document.getElementById('ham').addEventListener('click', function() {
+  document.getElementById('mobMenu').classList.add('open');
+  document.body.style.overflow = 'hidden';
+});
+document.getElementById('mobClose').addEventListener('click', function() {
+  document.getElementById('mobMenu').classList.remove('open');
+  document.body.style.overflow = '';
+});
+function closeMob() {
+  document.getElementById('mobMenu').classList.remove('open');
+  document.body.style.overflow = '';
+}
+document.getElementById('mobMenu').addEventListener('click', function(e) {
+  if(e.target === this) { this.classList.remove('open'); document.body.style.overflow = ''; }
+});
+window.addEventListener('scroll', () => {
+  document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 50);
+});
 
 // ── CURSOR
 const cur = document.getElementById('cur'), curR = document.getElementById('curR');
@@ -704,7 +655,6 @@ document.querySelectorAll('a,button,.pcard,.flip-wrap,.can-card,.trait,.accard')
   el.addEventListener('mouseleave',()=>{cur.style.transform='scale(1)';curR.style.borderColor='rgba(232,101,42,0.5)';curR.style.transform='scale(1)'});
 });
 
-},{threshold:0.1,rootMargin:'0px 0px -40px 0px'});
 
 // ── COUNTER
 const counterObs = new IntersectionObserver(entries=>{
